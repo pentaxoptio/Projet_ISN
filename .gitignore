@@ -1,3 +1,5 @@
 Makefile
-
+*.o
+*.pro
+*.pro.user
 convert-to-val
