@@ -26,13 +26,13 @@ Cette classe représente et contient les éléments du jeu. C'est elle qui se ch
 	* Affiche les composants graphiques
 
 ##Attributs
-* sf::RenderWindow m_w
+* `sf::RenderWindow m_w`
     * La fenêtre de rendu. cf. doc SFML
-* TextureHolder m_textures
+* `TextureHolder m_textures`
     * Le gestionnaire de textures. cf. Textures.h
-* FontHolder m_fonts
+* `FontHolder m_fonts`
     * Le gestionnaire de polices. cf. Fonts.h
-* Dungeon m_dungeon
+* `Dungeon m_dungeon`
     * Le donjon du jeu. cf. Dungeon.h
-* DungeonRenderer m_renderer
+* `DungeonRenderer m_renderer`
     * La classe chargée d'afficher le donjon. cf. DungeonRenderer.h
