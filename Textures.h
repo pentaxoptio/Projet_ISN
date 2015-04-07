@@ -1,38 +1,42 @@
 #ifndef TEXTURES_H
-#define TEXTURES_H
+#define TEXTURES_H 
 
 #include <string>
 #include <SFML/Graphics.hpp>
 
 enum TextureId
 {
-    Tiles,
-    Player,
-    Effects
+	Tiles,
+	Player,
+	Buttons,
+	Effects,
 };
 
 enum RectId
 {
-    Wall,
-    Air,
-    Stairs,
-    RedEffect,
-    BlueEffect
+	Wall,
+	Air,
+	Stairs,
+	RedEffect,
+	BlueEffect,
+	ButtonNormal,
+	ButtonSelect,
+	ButtonActivate
 };
 
 class TextureHolder
 {
-    public :
-        TextureHolder();
-        ~TextureHolder();
-        void registerTexture(TextureId id, std::string filename);
-        sf::Texture const& getTexture(TextureId id);
-        void registerRect(RectId id, sf::IntRect rect);
-        sf::IntRect getRect(RectId id);
+	public :
+		TextureHolder();
+		~TextureHolder();
+		void registerTexture(TextureId id, std::string filename);
+		sf::Texture const& getTexture(TextureId id) const;
+		void registerRect(RectId id, sf::IntRect rect);
+		sf::IntRect getRect(RectId id) const;
 
-    private :
-        std::map<TextureId, sf::Texture*> m_textures;
-        std::map<RectId, sf::IntRect> m_rects;
+	private :
+		std::map<TextureId, sf::Texture*> m_textures;
+		std::map<RectId, sf::IntRect> m_rects;
 };
 
 #endif

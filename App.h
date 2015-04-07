@@ -6,6 +6,7 @@
 #include "Dungeon.h"
 #include "DungeonRenderer.h"
 #include "Textures.h"
+#include "Fonts.h"
 
 class App
 {
@@ -21,6 +22,7 @@ class App
     private :
         sf::RenderWindow m_w;
         TextureHolder m_textures;
+		FontHolder m_fonts;
         Dungeon m_dungeon;
         DungeonRenderer m_renderer;
 };

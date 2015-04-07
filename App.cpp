@@ -3,8 +3,9 @@
 App::App() :
 	m_w(sf::VideoMode(640, 480), "DONJON")
 	, m_textures()
+	, m_fonts()
 	, m_dungeon()
-	, m_renderer(m_dungeon, {&m_w, &m_textures})
+	, m_renderer(m_dungeon, {&m_w, &m_textures, &m_fonts})
 {
     m_textures.registerTexture(Tiles, "res/tex/tiles.png");
 	m_textures.registerRect(Air, sf::IntRect(0, 0, 24, 24));
@@ -13,6 +14,10 @@ App::App() :
     m_textures.registerTexture(Player, "res/tex/player.png");
     m_textures.registerTexture(Effects, "res/tex/effects.png");
 	m_textures.registerRect(RedEffect, sf::IntRect(0, 0, 24, 24));
+	m_textures.registerTexture(Buttons, "res/tex/buttons.png");
+	m_textures.registerRect(ButtonNormal, sf::IntRect(0, 0, 200, 50));
+	m_textures.registerRect(ButtonSelect, sf::IntRect(0, 50, 200, 50));
+	m_textures.registerRect(ButtonActivate, sf::IntRect(0, 100, 200, 50));
 }
 
 void App::run()
