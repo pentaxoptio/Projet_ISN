@@ -4,7 +4,7 @@
 
 Dungeon::Dungeon() :
 	m_grid()
-	, m_player(6, 4)
+	, m_player(40, 35)
 {
 	int roomsCount = 16; //à modifier
 	std::srand((unsigned int)std::time(0));
