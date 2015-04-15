@@ -100,7 +100,7 @@ void App::update(sf::Time)
 
 void App::render()
 {
-	m_w.clear(sf::Color(20, 8, 30));
+	m_w.clear(sf::Color(200, 160, 160));
 	m_w.draw(m_renderer);
 	m_w.display();
 }
