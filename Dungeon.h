@@ -27,6 +27,11 @@ class Dungeon
         Keep::Tile getTile(unsigned int x, unsigned int y) const;
         sf::Vector2u getPlayerPosition() const;
 
+	private :
+		void placeRooms(int roomsCount);
+		void createWay(int x, int y, int xDest, int yDest);
+		void connect(std::vector<int> xPositions, std::vector<int> yPositions);
+
     private :
         Grid m_grid;
         sf::Vector2u m_player;

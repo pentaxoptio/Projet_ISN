@@ -80,6 +80,12 @@ void App::handleEvents()
 						m_dungeon.playerMove(pos);
 					}
 					break;
+				case sf::Keyboard::Add :
+					m_renderer.setRenderConfig({m_renderer.getRenderConfig().tileSize*2.f});
+					break;
+				case sf::Keyboard::Subtract :
+					m_renderer.setRenderConfig({m_renderer.getRenderConfig().tileSize/2.f});
+					break;
 				default :
 					break;
 			}

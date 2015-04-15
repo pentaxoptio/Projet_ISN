@@ -111,6 +111,16 @@ void DungeonRenderer::onMouseButtonPressed(sf::Event::MouseButtonEvent event)
 	}
 }
 
+void DungeonRenderer::setRenderConfig(RenderConfig newConf)
+{
+	m_conf = newConf;
+}
+
+RenderConfig DungeonRenderer::getRenderConfig() const
+{
+	return m_conf;
+}
+
 sf::Vector2f DungeonRenderer::getSize() const
 {
 	return sf::Vector2f((float)m_dungeon.getSize().x*m_conf.tileSize, (float)m_dungeon.getSize().y*m_conf.tileSize);

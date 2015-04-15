@@ -20,6 +20,9 @@ class DungeonRenderer : public sf::Drawable, public sf::Transformable
         void onMouseMove(sf::Event::MouseMoveEvent event);
         void onMouseButtonPressed(sf::Event::MouseButtonEvent event);
 
+		void setRenderConfig(RenderConfig newConf);
+		RenderConfig getRenderConfig() const;
+
         sf::Vector2f getSize() const;
 
     private :
