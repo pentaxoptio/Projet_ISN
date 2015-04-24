@@ -10,6 +10,7 @@ enum TextureId
 	Player,
 	Buttons,
 	Effects,
+	TitleScreen
 };
 
 enum RectId

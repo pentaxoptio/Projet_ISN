@@ -3,8 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Dungeon.h"
-#include "DungeonRenderer.h"
+#include "StateStack.h"
+#include "GameState.h"
+#include "MainMenuState.h"
+
 #include "Textures.h"
 #include "Fonts.h"
 
@@ -19,12 +21,14 @@ class App
         void update(sf::Time dt);
         void render();
 
+		void registerStates();
+		void registerTextures();
+
     private :
         sf::RenderWindow m_w;
         TextureHolder m_textures;
 		FontHolder m_fonts;
-        Dungeon m_dungeon;
-        DungeonRenderer m_renderer;
+		StateStack m_stack;
 };
 
 #endif
