@@ -10,7 +10,7 @@ MainMenuState::MainMenuState(StateStack &stack, Context context) :
 	m_bg.setScale(scale);
 
 	gui::Button* play = new gui::Button(false, "Play", context.fonts->get(Default), *context.textures);
-	play->setPosition(100, 100);
+	play->setPosition(100, 300);
 	play->setCallback([this] ()
 	{
 		requestStackPop();
@@ -22,7 +22,7 @@ MainMenuState::MainMenuState(StateStack &stack, Context context) :
 void MainMenuState::render()
 {
 	sf::RenderWindow &window = *getContext().window;
-	window.setView(window.getDefaultView());
+	//window.setView(window.getDefaultView());
 	window.draw(m_bg);
 	window.draw(m_container);
 }

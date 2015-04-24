@@ -9,6 +9,8 @@ App::App() :
 	registerStates();
 	registerTextures();
 
+	m_fonts.registerFont(Default, "res/font/SourceCodePro-Regular.ttf");
+
 	m_stack.pushState(MainMenu);
 }
 

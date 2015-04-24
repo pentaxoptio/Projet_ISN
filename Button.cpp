@@ -10,6 +10,7 @@ Button::Button(bool toggle, TextureHolder const &textures) :
 	, m_callback()
 	, m_toggle(toggle)
 {
+	initSprite();
 	std::cout << "construction button" << std::endl;
 }
 
@@ -21,8 +22,12 @@ Button::Button(bool toggle, std::string const &text, sf::Font const &font, Textu
 	, m_toggle(toggle)
 {
 	std::cout << "construction button" << std::endl;
+	initSprite();
 	m_text.setCharacterSize(20);
 	m_text.setColor(sf::Color::White);
+	m_text.setPosition(sf::Vector2f(
+				(m_sprite.getLocalBounds().width - m_text.getLocalBounds().width) / 2.f,
+				(m_sprite.getLocalBounds().height - m_text.getLocalBounds().height) / 2.f));
 }
 
 bool Button::isSelectable() const
