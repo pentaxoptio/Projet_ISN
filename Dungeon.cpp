@@ -154,6 +154,7 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
 {
 	int moitie = (int)std::floor((double)xPositions.size()*0.5);
+	int cpt(0);
 	while (cpt < moitie)// /!\ se relient a eux meme !!!
 	{
 		createWay(xPositions[cpt], yPositions[cpt], xPositions [cpt], yPositions[cpt]);
