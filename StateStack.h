@@ -18,12 +18,6 @@ class StateStack
 			Clear
 		};
 
-		struct GlobalSettings
-		{
-			Difficulty difficulty;
-			unsigned int score;
-		};
-
 	public :
 		explicit StateStack(Context context);
 		~StateStack();

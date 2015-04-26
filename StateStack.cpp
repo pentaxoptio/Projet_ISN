@@ -64,12 +64,12 @@ bool StateStack::isEmpty() const
 	return m_stack.empty();
 }
 
-StateStack::GlobalSettings StateStack::getGlobalSettings() const
+GlobalSettings StateStack::getGlobalSettings() const
 {
 	return m_globalSettings;
 }
 
-StateStack::GlobalSettings& StateStack::accessGlobalSettings()
+GlobalSettings& StateStack::accessGlobalSettings()
 {
 	return m_globalSettings;
 }

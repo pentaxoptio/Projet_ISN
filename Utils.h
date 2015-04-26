@@ -20,4 +20,10 @@ enum Difficulty
 	Hard
 };
 
+struct GlobalSettings
+{
+	Difficulty difficulty;
+	unsigned int score;
+};
+
 #endif
