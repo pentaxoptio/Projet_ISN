@@ -17,6 +17,14 @@ MainMenuState::MainMenuState(StateStack &stack, Context context) :
 		requestStackPush(Game);
 	});
 	m_container.pack(play);
+
+	gui::Button* quit = new gui::Button(false, "Quit", context.fonts->get(Default), *context.textures);
+	quit->setPosition(100,350);
+	quit->setCallback([this] ()
+	{
+		getContext().window->close();
+	});
+	m_container.pack(quit);
 }
 
 void MainMenuState::render()
