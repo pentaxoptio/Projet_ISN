@@ -60,10 +60,12 @@ bool GameState::handleEvent(sf::Event const& event)
 				}
 				break;
 			case sf::Keyboard::Add :
-				m_renderer.setRenderConfig({m_renderer.getRenderConfig().tileSize*2.f});
+				if (m_renderer.getRenderConfig().tileSize < 192.f)
+					m_renderer.setRenderConfig({m_renderer.getRenderConfig().tileSize*2.f});
 				break;
 			case sf::Keyboard::Subtract :
-				m_renderer.setRenderConfig({m_renderer.getRenderConfig().tileSize/2.f});
+				if (m_renderer.getRenderConfig().tileSize > 6.f)
+					m_renderer.setRenderConfig({m_renderer.getRenderConfig().tileSize/2.f});
 				break;
 			default :
 				break;
