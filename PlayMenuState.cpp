@@ -46,6 +46,7 @@ PlayMenuState::PlayMenuState(StateStack &stack, Context context) :
 		requestStackPop();
 		requestStackPush(MainMenu);
 	});
+	m_container.pack(cancel);
 }
 
 bool PlayMenuState::handleEvent(sf::Event const& event)
