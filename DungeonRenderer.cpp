@@ -129,7 +129,7 @@ sf::Vector2f DungeonRenderer::getSize() const
 sf::Vector2u DungeonRenderer::determineTile(sf::Vector2i location) const
 {
 	sf::Vector2u player = m_dungeon.getPlayerPosition();
-	sf::Vector2f winCenter(320.f, 240.f);
+	sf::Vector2f winCenter = m_context.window->getView().getCenter();
 	sf::Vector2f upLeft(winCenter.x - ((float)player.x + 0.5f)*m_conf.tileSize,
 			winCenter.y - ((float)player.y + 0.5f)*m_conf.tileSize);
 	sf::Vector2i eventRelativePos(location.x - (int)upLeft.x, location.y - (int)upLeft.y);
