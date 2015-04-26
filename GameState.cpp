@@ -1,11 +1,20 @@
 #include "GameState.h"
+#include <iostream>
 
 GameState::GameState(StateStack &stack, Context context) :
 	State(stack, context)
 	, m_dungeon()
 	, m_renderer(m_dungeon, context)
 {
-	
+	Difficulty dfclt = getGlobalSettings().difficulty;
+	std::cout << "Difficulté choisie : ";
+	if (dfclt == Easy)
+		std::cout << "Easy";
+	else if (dfclt == Normal)
+		std::cout << "Normal";
+	else
+		std::cout << "Hard";
+	std::cout << std::endl;
 }
 
 void GameState::render()
