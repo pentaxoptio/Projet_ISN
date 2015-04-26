@@ -14,7 +14,7 @@ MainMenuState::MainMenuState(StateStack &stack, Context context) :
 	play->setCallback([this] ()
 	{
 		requestStackPop();
-		requestStackPush(Game);
+		requestStackPush(PlayMenu);
 	});
 	m_container.pack(play);
 

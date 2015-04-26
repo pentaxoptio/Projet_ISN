@@ -90,7 +90,9 @@ void Button::deactivate()
 void Button::setText(std::string const &text)
 {
 	m_text.setString(text);
-	m_text.setPosition(sf::Vector2f(0, 0));
+	m_text.setPosition(sf::Vector2f(
+				(m_sprite.getLocalBounds().width - m_text.getLocalBounds().width) / 2.f,
+				(m_sprite.getLocalBounds().height - m_text.getLocalBounds().height) / 2.f));
 }
 
 void Button::setFont(sf::Font const &font)

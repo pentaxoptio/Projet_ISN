@@ -10,6 +10,7 @@ class StateStack;
 enum StateId
 {
 	MainMenu,
+	PlayMenu,
 	Game,
 	NoState
 };
@@ -17,7 +18,7 @@ enum StateId
 class State
 {
 	public :
-		State(StateStack &stack, Context context);
+		State(StateStack& stack, Context context);
 		virtual ~State();
 		
 		virtual void render() = 0;
@@ -30,6 +31,8 @@ class State
 		void requestStackClear();
 
 		Context getContext() const;
+		GlobalSettings getGlobalSettings() const;
+		GlobalSettings& accessGlobalSettings();
 
 	private :
 		StateStack* m_stack;

@@ -13,4 +13,17 @@ struct Context
 	FontHolder* fonts;
 };
 
+enum Difficulty
+{
+	Easy,
+	Normal,
+	Hard
+};
+
+struct GlobalSettings
+{
+	Difficulty difficulty;
+	unsigned int score;
+};
+
 #endif

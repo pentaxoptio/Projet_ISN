@@ -54,6 +54,7 @@ void App::render()
 void App::registerStates()
 {
 	m_stack.registerState<MainMenuState>(MainMenu);
+	m_stack.registerState<PlayMenuState>(PlayMenu);
 	m_stack.registerState<GameState>(Game);
 }
 

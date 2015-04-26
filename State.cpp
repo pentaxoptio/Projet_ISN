@@ -34,3 +34,13 @@ Context State::getContext() const
 {
 	return m_context;
 }
+
+GlobalSettings State::getGlobalSettings() const
+{
+	return m_stack->getGlobalSettings();
+}
+
+GlobalSettings& State::accessGlobalSettings()
+{
+	return m_stack->accessGlobalSettings();
+}
