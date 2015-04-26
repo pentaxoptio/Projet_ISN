@@ -34,6 +34,7 @@ PlayMenuState::PlayMenuState(StateStack &stack, Context context) :
 	play->setPosition(100, 400);
 	play->setCallback([this] ()
 	{
+		accessGlobalSettings().difficulty = m_difficulty;
 		requestStackPop();
 		requestStackPush(Game);
 	});
