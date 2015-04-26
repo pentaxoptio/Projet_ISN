@@ -17,6 +17,19 @@ class StateStack
 			Clear
 		};
 
+		enum Difficulty
+		{
+			Easy,
+			Normal,
+			Hard
+		};
+
+		struct GlobalSettings
+		{
+			Difficulty difficulty;
+			unsigned int score;
+		};
+
 	public :
 		explicit StateStack(Context context);
 		~StateStack();
@@ -33,6 +46,8 @@ class StateStack
 		void clearStates();
 
 		bool isEmpty() const;
+		GlobalSettings getGlobalSettings() const;
+		GlobalSettings& accessGlobalSettings();
 
 	private :
 		struct Change
@@ -47,6 +62,7 @@ class StateStack
 		void applyChanges();
 
 	private :
+		GlobalSettings m_globalSettings;
 		std::vector<State*> m_stack;
 		std::vector<Change> m_changes;
 		Context m_context;

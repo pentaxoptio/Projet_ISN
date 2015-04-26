@@ -3,7 +3,8 @@
 #include <exception>
 
 StateStack::StateStack(Context context) :
-	m_stack()
+	m_globalSettings({Normal, 0})
+	, m_stack()
 	, m_changes()
 	, m_context(context)
 	, m_stateMakers()
@@ -61,6 +62,16 @@ void StateStack::clearStates()
 bool StateStack::isEmpty() const
 {
 	return m_stack.empty();
+}
+
+StateStack::GlobalSettings StateStack::getGlobalSettings() const
+{
+	return m_globalSettings;
+}
+
+StateStack::GlobalSettings& StateStack::accessGlobalSettings()
+{
+	return m_globalSettings;
 }
 
 //Private : -----------------------------
