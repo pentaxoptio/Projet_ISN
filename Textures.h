@@ -7,7 +7,7 @@
 enum TextureId
 {
 	Tiles,
-	Player,
+	Hero,
 	Buttons,
 	Effects,
 	TitleScreen

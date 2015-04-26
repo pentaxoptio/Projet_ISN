@@ -23,7 +23,7 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) co
 	sAir.setScale(scales);
 	sf::Sprite sStairs(m_context.textures->getTexture(Tiles), m_context.textures->getRect(Stairs));
 	sStairs.setScale(scales);
-	sf::Sprite sPlayer(m_context.textures->getTexture(Player));
+	sf::Sprite sPlayer(m_context.textures->getTexture(Hero));
 	sPlayer.setScale(scales);
 	sf::Sprite sRedEffect(m_context.textures->getTexture(Effects), m_context.textures->getRect(RedEffect));
 	sRedEffect.setScale(scales);

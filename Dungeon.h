@@ -1,6 +1,8 @@
 #ifndef DUNGEON_H
 #define DUNGEON_H
 
+#include "Player.h"
+
 #include <vector>
 #include <SFML/Graphics.hpp>
 
@@ -34,7 +36,7 @@ class Dungeon
 
     private :
         Grid m_grid;
-        sf::Vector2u m_player;
+        Player m_player;
 };
 
 #endif

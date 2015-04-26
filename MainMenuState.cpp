@@ -29,6 +29,11 @@ MainMenuState::MainMenuState(StateStack &stack, Context context) :
 
 void MainMenuState::render()
 {
+	sf::Vector2f scale(
+			(float)getContext().window->getSize().x / m_bg.getLocalBounds().width,
+			(float)getContext().window->getSize().y / m_bg.getLocalBounds().height);
+	m_bg.setScale(scale);
+
 	sf::RenderWindow &window = *getContext().window;
 	//window.setView(window.getDefaultView());
 	window.draw(m_bg);

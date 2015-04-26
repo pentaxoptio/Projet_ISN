@@ -4,8 +4,9 @@
 
 Dungeon::Dungeon() :
 	m_grid()
-	, m_player(40, 35)
+	, m_player()
 {
+	m_player.setPosition(sf::Vector2u(40, 35));
 	int roomsCount = 16; //à modifier
 	std::srand((unsigned int)std::time(0));
 	int width = rand() % 25 + 75,
@@ -16,14 +17,13 @@ Dungeon::Dungeon() :
 
 void Dungeon::playerMove(unsigned int x, unsigned int y)
 {
-	m_player.x = x;
-	m_player.y = y;
+	m_player.setPosition(sf::Vector2u(x, y));
 	//Ici TimothÃ© gÃ¨re les actions des ennemis
 }
 
 void Dungeon::playerMove(sf::Vector2u newPos)
 {
-	playerMove(newPos.x, newPos.y);
+	m_player.setPosition(newPos);
 }
 
 sf::Vector2u Dungeon::getSize() const
@@ -38,7 +38,7 @@ Keep::Tile Dungeon::getTile(unsigned int x, unsigned int y) const
 
 sf::Vector2u Dungeon::getPlayerPosition() const
 {
-	return m_player;
+	return m_player.getPosition();
 }
 
 //Creation de donjon
