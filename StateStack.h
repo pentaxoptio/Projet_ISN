@@ -6,6 +6,7 @@
 #include <functional>
 
 #include "State.h"
+#include "Utils.h"
 
 class StateStack
 {
@@ -15,13 +16,6 @@ class StateStack
 			Push,
 			Pop,
 			Clear
-		};
-
-		enum Difficulty
-		{
-			Easy,
-			Normal,
-			Hard
 		};
 
 		struct GlobalSettings
