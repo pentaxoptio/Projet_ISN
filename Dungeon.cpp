@@ -75,8 +75,8 @@ void Dungeon::placeRooms(int roomsCount)
 		if (!intersect)
 		{
 			rooms.push_back(newRoom);
-			xRooms.push_back(newRoom.left);
-			yRooms.push_back(newRoom.top);
+			xRooms.push_back(newRoom.left+(newRoom.width/2)); //pour demarer le chemin au milleu de la salle
+			yRooms.push_back(newRoom.top+(newRoom.height/2));
 			++cpt;
 		}
 		else
@@ -143,29 +143,20 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 			y1 += yCoords[cpt];
 		
 		m_grid[x1][y1] = Keep::Air;
+		
+		//if (m_grid[x1-1][y1]== Keep::Wall)//Pour eviter qu'il y ait des chemins trop moches ( pas besoin de rajouter un air si pas besoin)
+		//{
+			m_grid[x1+1][y1]= Keep::Air;
+		//}
 	}
 }
 
 void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
 {
 	int moitie = (int)std::floor((double)xPositions.size()*0.5);
-	std::vector<int> unMoit;
-	std::vector<int> deuxMoit;
-	
-	for (int cpt(0); cpt < moitie; ++cpt)
-		unMoit.push_back(cpt);
-	for (int cpt(moitie); cpt<2*moitie; ++cpt)
-		deuxMoit.push_back(cpt);
-	
-	std::random_shuffle(unMoit.begin(), unMoit.end());
-	std::random_shuffle(deuxMoit.begin(), deuxMoit.end());
-	int cpt(0);
-	while (cpt < moitie)
+	while (cpt < moitie)// /!\ se relient a eux meme !!!
 	{
-		createWay(xPositions[unMoit[cpt]], yPositions[unMoit[cpt]], xPositions[deuxMoit[cpt]], yPositions[deuxMoit[cpt]]);
+		createWay(xPositions[cpt], yPositions[cpt], xPositions [cpt], yPositions[cpt]);
 		++cpt;
 	}
-	
-	if (2*(unsigned int)moitie < xPositions.size())
-		createWay((int)xPositions.size(), (int)yPositions.size(), xPositions[2], yPositions[2]); //remplacer 2 par un nombre random
 }
