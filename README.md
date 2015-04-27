@@ -1,6 +1,6 @@
 #Projet_ISN
 
-##[jeu de la mort qui tue #Houtmann la machine]
+##[jeu de la mort qui tue #HoutmannLaMachine]
 
 ###Présentation
 
