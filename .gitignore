@@ -3,4 +3,5 @@ Makefile
 *.o
 *.pro
 *.pro.user
+*.xcf
 convert-to-val

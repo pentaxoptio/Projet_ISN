@@ -18,7 +18,7 @@ bool OpeningState::update(sf::Time dt)
 	m_lifetime -= dt;
 	if (m_lifetime <= sf::milliseconds(1000))
 	{
-		unsigned char alpha = 255 * ((float)m_lifetime.asMilliseconds()) / (float)1000;
+		unsigned char alpha = (unsigned char)(255 * ((float)m_lifetime.asMilliseconds()) / (float)1000);
 		m_logo.setColor(sf::Color(255, 255, 255, alpha));
 	}
 	if (m_lifetime <= sf::Time::Zero)
