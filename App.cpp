@@ -11,7 +11,7 @@ App::App() :
 
 	m_fonts.registerFont(Default, "res/font/SourceCodePro-Regular.ttf");
 
-	m_stack.pushState(MainMenu);
+	m_stack.pushState(Opening);
 }
 
 void App::run()
@@ -53,6 +53,7 @@ void App::render()
 
 void App::registerStates()
 {
+	m_stack.registerState<OpeningState>(Opening);
 	m_stack.registerState<MainMenuState>(MainMenu);
 	m_stack.registerState<PlayMenuState>(PlayMenu);
 	m_stack.registerState<GameState>(Game);

@@ -7,6 +7,7 @@
 #include "GameState.h"
 #include "MainMenuState.h"
 #include "PlayMenuState.h"
+#include "OpeningState.h"
 
 #include "Textures.h"
 #include "Fonts.h"
