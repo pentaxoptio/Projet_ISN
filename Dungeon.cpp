@@ -1,4 +1,4 @@
-
+#include <iostream>
 #include "Dungeon.h"
 #include <time.h>
 #include <stdlib.h>
@@ -43,6 +43,8 @@ sf::Vector2u Dungeon::getPlayerPosition() const
 }
 
 //Creation de donjon
+
+
 void Dungeon::placeRooms(int roomsCount)
 {
 	std::vector<sf::IntRect> rooms;
@@ -88,10 +90,12 @@ void Dungeon::placeRooms(int roomsCount)
 		for (int x(xPosition); x < xPositionMax; ++x)
 			for (int y(yPosition); y < yPositionMax; ++y)
 				m_grid[x][y] = Keep::Air;
+        std::cout << "nbr de pieces : " << cpt <<  std::endl;
 	} //end while
 	
 	connect(xRooms, yRooms);
 }
+
 
 void Dungeon::createWay(int x, int y, int xDest, int yDest)
 {
@@ -101,8 +105,8 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 	int yDetour = rand()%5 + 5;
 	int x1 = x-1;
 	int y1 = y-1;
-	int max = 0; //nombre max de 1 et de -1 dans une liste. Permet a une liste de continuer alors que l'autre est finie
-	
+    int max = 0; //nombre max de 1 et de -1 dans une liste. Permet a une liste de continuer alors que l'autre est finie
+
 	if (xDiff+xDetour > yDiff + yDetour)
 		max = xDiff + xDetour;
 	else
@@ -133,32 +137,89 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 	
 	std::random_shuffle(xCoords.begin(), xCoords.end());
 	std::random_shuffle(yCoords.begin(), yCoords.end());
-	
+    std::cout<< __LINE__ << std::endl;
 	m_grid[x1][y1] = Keep::Air;
+    std::cout<< __LINE__ << std::endl;
 	for (int cpt(0); cpt <= xCoords.size(); ++cpt)
-	{
-		if (cpt < xCoords.size())
-			x1 += xCoords[cpt];
+
+    {std::cout<< __LINE__ << std::endl;
+        if (cpt < xCoords.size())//on ajoute ou retire 1 des x de la ou on est pour créer un chemin
+        {
+            std::cout<< __LINE__ << std::endl;
+            if (x1 += xCoords[cpt] >0 )//si on ne vas pas vers l'exterieur gauche
+            {
+                std::cout<< __LINE__ << std::endl;
+                if (x1 += xCoords[cpt] < xCoords.size() )//et ni vers l'exterieur droite
+                {
+                    std::cout<< __LINE__ << std::endl;
+                   // continue; // si on ne depasse ni a droite ni a gauche c est bon
+                }
+                else //si on vas vers la droite on rajoute on supprime le +1 qui va vers la droite et on le met a la fin pour que ca ne pose plus probleme
+                {
+                    std::cout<< __LINE__ << std::endl;
+                    xCoords.erase(xCoords.begin()+cpt);
+                    xCoords.push_back(1);
+
+                }
+            }
+
+            else// si on vas vers l'exterieur gauche on supprime le -1 et on le rajoute en fin de liste
+            {
+                std::cout<< __LINE__ << std::endl;
+                xCoords.erase(xCoords.begin()+cpt);
+                xCoords.push_back(-1);
+            }
+            std::cout<< __LINE__ << std::endl;
+            x1 += xCoords[cpt];
+        }
 		
-		if (cpt < yCoords.size())
-			y1 += yCoords[cpt];
-		
-		m_grid[x1][y1] = Keep::Air;
+        if (cpt < yCoords.size())
+        {
+            std::cout<< __LINE__ << std::endl;
+            if (y1 += yCoords[cpt] >0 )//si on ne vas pas vers l'exterieur haut
+            {std::cout<< __LINE__ << std::endl;
+                if (y1 += yCoords[cpt] < yCoords.size() )//et ni vers l'exterieur bas
+                {std::cout<< __LINE__ << std::endl;
+                    continue; // si on ne depasse ni en haut ni en bas
+                }
+                else //si on vas vers le bas on rajoute on supprime le +1 qui va vers le bas et on le met a la fin pour que ca ne pose plus probleme
+                {std::cout<< __LINE__ << std::endl;
+                    yCoords.erase(yCoords.begin()+cpt);
+                    yCoords.push_back(1);
+                }
+            }
+            else// si on vas trop vers le bas on supprime le -1 et on le rajoute en fin de liste
+            {std::cout<< __LINE__ << std::endl;
+                yCoords.erase(yCoords.begin()+cpt);
+                yCoords.push_back(-1);
+
+            }
+            y1 += yCoords[cpt];
+            std::cout<< __LINE__ << std::endl;
+        }
+
+    std::cout<< __LINE__ << std::endl;
+            m_grid[x1][y1] = Keep::Air;
 		
 		//if (m_grid[x1-1][y1]== Keep::Wall)//Pour eviter qu'il y ait des chemins trop moches ( pas besoin de rajouter un air si pas besoin)
-		//{
-			m_grid[x1+1][y1]= Keep::Air;
+        //{
+            if(x1+1<m_grid.size() )
+                m_grid[x1+1][y1]= Keep::Air;
 		//}
+
+    std::cout<< __LINE__ << std::endl;
 	}
 }
 
 void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
 {
-	int moitie = (int)std::floor((double)xPositions.size()*0.5);
+    int lenth = (int)std::floor((double)xPositions.size() );
 	int cpt(0);
-	while (cpt < moitie)// /!\ se relient a eux meme !!!
+    while (cpt < lenth)//
 	{
-		createWay(xPositions[cpt], yPositions[cpt], xPositions [cpt], yPositions[cpt]);
+        createWay(xPositions[cpt], yPositions[cpt], xPositions [cpt+1], yPositions[cpt+1]);
 		++cpt;
+        ++cpt;
+        std::cout << "nbr de create way fait" << cpt/2 << std::endl;
 	}
 }
