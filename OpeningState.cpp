@@ -10,19 +10,22 @@ OpeningState::OpeningState(StateStack& stack, Context context) :
 
 bool OpeningState::handleEvent(sf::Event const&)
 {
-	//lol
-	return true;
+	return false;
 }
 
 bool OpeningState::update(sf::Time dt)
 {
 	m_lifetime -= dt;
+	if (m_lifetime <= sf::milliseconds(1000))
+	{
+		unsigned char alpha = 255 * ((float)m_lifetime.asMilliseconds()) / (float)1000;
+		m_logo.setColor(sf::Color(255, 255, 255, alpha));
+	}
 	if (m_lifetime <= sf::Time::Zero)
 	{
 		requestStackPop();
-		requestStackPush(MainMenu);
 	}
-	return true;
+	return false;
 }
 
 void OpeningState::render()
