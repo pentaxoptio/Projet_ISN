@@ -100,12 +100,14 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 	int yDetour = rand()%5 + 5;
 	int x1 = x-1;
 	int y1 = y-1;
+	/* VARIABLE MAX NON UTILISÉE -------------------------
 	int max = 0; //nombre max de 1 et de -1 dans une liste. Permet a une liste de continuer alors que l'autre est finie
 	
 	if (xDiff+xDetour > yDiff + yDetour)
 		max = xDiff + xDetour;
 	else
 		max = yDiff + yDetour;
+	*/
 	
 	std::vector<int> xCoords;
 	for (int cpt(0); cpt < xDiff; ++cpt)
@@ -134,7 +136,7 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 	std::random_shuffle(yCoords.begin(), yCoords.end());
 	
 	m_grid[x1][y1] = Keep::Air;
-	for (int cpt(0); cpt <= xCoords.size(); ++cpt)
+	for (unsigned int cpt(0); cpt <= xCoords.size(); ++cpt)
 	{
 		if (cpt < xCoords.size())
 			x1 += xCoords[cpt];
