@@ -70,9 +70,9 @@ void App::registerTextures()
     m_textures.registerTexture(Effects, "res/tex/effects.png");
 	m_textures.registerRect(RedEffect, sf::IntRect(0, 0, 24, 24));
 	m_textures.registerTexture(Buttons, "res/tex/buttons.png");
-	m_textures.registerRect(ButtonNormal, sf::IntRect(0, 0, 200, 50));
-	m_textures.registerRect(ButtonSelect, sf::IntRect(0, 50, 200, 50));
-	m_textures.registerRect(ButtonActivate, sf::IntRect(0, 100, 200, 50));
+	m_textures.registerRect(ButtonNormal, sf::IntRect(0, 0, 200, 40));
+	m_textures.registerRect(ButtonSelect, sf::IntRect(0, 40, 200, 40));
+	m_textures.registerRect(ButtonActivate, sf::IntRect(0, 80, 200, 40));
 	m_textures.registerTexture(TitleScreen, "res/tex/title_screen.png");
 	m_textures.registerTexture(Logo, "res/tex/logo.png");
 }
