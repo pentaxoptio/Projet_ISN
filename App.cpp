@@ -72,4 +72,5 @@ void App::registerTextures()
 	m_textures.registerRect(ButtonSelect, sf::IntRect(0, 50, 200, 50));
 	m_textures.registerRect(ButtonActivate, sf::IntRect(0, 100, 200, 50));
 	m_textures.registerTexture(TitleScreen, "res/tex/title_screen.png");
+	m_textures.registerTexture(Logo, "res/tex/logo.png");
 }
