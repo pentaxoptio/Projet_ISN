@@ -105,19 +105,19 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 	int yDetour = rand()%5 + 5;
 	int x1 = x-1;
 	int y1 = y-1;
-<<<<<<< HEAD
+
     int max = 0; //nombre max de 1 et de -1 dans une liste. Permet a une liste de continuer alors que l'autre est finie
 
-=======
+
 	/* VARIABLE MAX NON UTILISÉE -------------------------
 	int max = 0; //nombre max de 1 et de -1 dans une liste. Permet a une liste de continuer alors que l'autre est finie
 	
->>>>>>> 37f4e44841b3db4471d1983fbb3fe4cb0302fa1c
+*/
 	if (xDiff+xDetour > yDiff + yDetour)
 		max = xDiff + xDetour;
 	else
 		max = yDiff + yDetour;
-	*/
+
 	
 	std::vector<int> xCoords;
 	for (int cpt(0); cpt < xDiff; ++cpt)
@@ -146,11 +146,11 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 	std::random_shuffle(yCoords.begin(), yCoords.end());
     std::cout<< __LINE__ << std::endl;
 	m_grid[x1][y1] = Keep::Air;
-<<<<<<< HEAD
+
     std::cout<< __LINE__ << std::endl;
 	for (int cpt(0); cpt <= xCoords.size(); ++cpt)
-
-    {std::cout<< __LINE__ << std::endl;
+    {
+        std::cout<< __LINE__ << std::endl;
         if (cpt < xCoords.size())//on ajoute ou retire 1 des x de la ou on est pour créer un chemin
         {
             std::cout<< __LINE__ << std::endl;
@@ -180,7 +180,7 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
             std::cout<< __LINE__ << std::endl;
             x1 += xCoords[cpt];
         }
-=======
+    }
 	for (unsigned int cpt(0); cpt <= xCoords.size(); ++cpt)
 	{
 		if (cpt < xCoords.size())
@@ -188,7 +188,7 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 		
 		if (cpt < yCoords.size())
 			y1 += yCoords[cpt];
->>>>>>> 37f4e44841b3db4471d1983fbb3fe4cb0302fa1c
+
 		
         if (cpt < yCoords.size())
         {
@@ -205,7 +205,7 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
                     yCoords.push_back(1);
                 }
             }
-            else// si on vas trop vers le bas on supprime le -1 et on le rajoute en fin de liste
+            else    // si on vas trop vers le bas on supprime le -1 et on le rajoute en fin de liste
             {std::cout<< __LINE__ << std::endl;
                 yCoords.erase(yCoords.begin()+cpt);
                 yCoords.push_back(-1);
@@ -226,8 +226,8 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 
     std::cout<< __LINE__ << std::endl;
 	}
-}
 
+}
 void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
 {
     int lenth = (int)std::floor((double)xPositions.size() );
