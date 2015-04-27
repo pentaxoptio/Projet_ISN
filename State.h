@@ -9,6 +9,7 @@ class StateStack;
 
 enum StateId
 {
+	Opening,
 	MainMenu,
 	PlayMenu,
 	Game,

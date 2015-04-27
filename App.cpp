@@ -1,7 +1,7 @@
 #include "App.h"
 
 App::App() :
-	m_w(sf::VideoMode(640, 480), "DONJON")
+	m_w(sf::VideoMode(800, 450), "DONJON")
 	, m_textures()
 	, m_fonts()
 	, m_stack({&m_w, &m_textures, &m_fonts})
@@ -12,6 +12,7 @@ App::App() :
 	m_fonts.registerFont(Default, "res/font/SourceCodePro-Regular.ttf");
 
 	m_stack.pushState(MainMenu);
+	m_stack.pushState(Opening);
 }
 
 void App::run()
@@ -53,6 +54,7 @@ void App::render()
 
 void App::registerStates()
 {
+	m_stack.registerState<OpeningState>(Opening);
 	m_stack.registerState<MainMenuState>(MainMenu);
 	m_stack.registerState<PlayMenuState>(PlayMenu);
 	m_stack.registerState<GameState>(Game);
@@ -72,4 +74,5 @@ void App::registerTextures()
 	m_textures.registerRect(ButtonSelect, sf::IntRect(0, 50, 200, 50));
 	m_textures.registerRect(ButtonActivate, sf::IntRect(0, 100, 200, 50));
 	m_textures.registerTexture(TitleScreen, "res/tex/title_screen.png");
+	m_textures.registerTexture(Logo, "res/tex/logo.png");
 }

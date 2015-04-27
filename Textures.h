@@ -10,7 +10,8 @@ enum TextureId
 	Hero,
 	Buttons,
 	Effects,
-	TitleScreen
+	TitleScreen,
+	Logo
 };
 
 enum RectId
