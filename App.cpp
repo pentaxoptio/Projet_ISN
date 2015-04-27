@@ -1,7 +1,7 @@
 #include "App.h"
 
 App::App() :
-	m_w(sf::VideoMode(640, 480), "DONJON")
+	m_w(sf::VideoMode(800, 450), "DONJON")
 	, m_textures()
 	, m_fonts()
 	, m_stack({&m_w, &m_textures, &m_fonts})
