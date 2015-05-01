@@ -10,6 +10,7 @@
 struct RenderConfig
 {
     float tileSize;
+	bool renderCoords;
 };
 
 class DungeonRenderer : public sf::Drawable, public sf::Transformable

@@ -35,6 +35,7 @@ bool GameState::handleEvent(sf::Event const& event)
 	else if (event.type == sf::Event::KeyPressed)
 	{
 		sf::Vector2u pos;
+		RenderConfig conf = m_renderer.getRenderConfig();
 		switch (event.key.code)
 		{
 			case sf::Keyboard::Up :
@@ -70,12 +71,18 @@ bool GameState::handleEvent(sf::Event const& event)
 				}
 				break;
 			case sf::Keyboard::Add :
-				if (m_renderer.getRenderConfig().tileSize < 192.f)
-					m_renderer.setRenderConfig({m_renderer.getRenderConfig().tileSize*2.f});
+				if (conf.tileSize < 192.f)
+					conf.tileSize = conf.tileSize*2.f;
+				m_renderer.setRenderConfig(conf);
 				break;
 			case sf::Keyboard::Subtract :
-				if (m_renderer.getRenderConfig().tileSize > 6.f)
-					m_renderer.setRenderConfig({m_renderer.getRenderConfig().tileSize/2.f});
+				if (conf.tileSize > 6.f)
+					conf.tileSize = conf.tileSize/2.f;
+				m_renderer.setRenderConfig(conf);
+				break;
+			case sf::Keyboard::F3 :
+				conf.renderCoords = !conf.renderCoords;
+				m_renderer.setRenderConfig(conf);
 				break;
 			default :
 				break;
