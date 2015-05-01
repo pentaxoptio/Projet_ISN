@@ -23,7 +23,9 @@ enum RectId
 	BlueEffect,
 	ButtonNormal,
 	ButtonSelect,
-	ButtonActivate
+	ButtonActivate,
+	Player1,
+	Player2
 };
 
 class TextureHolder

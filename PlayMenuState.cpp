@@ -8,7 +8,7 @@ PlayMenuState::PlayMenuState(StateStack &stack, Context context) :
 	, m_difficulty(Normal)
 {
 	gui::Button* difficulty = new gui::Button(false, "Difficulty : Normal", context.fonts->get(Default), *context.textures);
-	difficulty->setPosition(100, 300);
+	difficulty->setPosition(100, 250);
 	difficulty->setCallback([this] ()
 	{
 		if (m_difficulty == Normal)
@@ -31,7 +31,7 @@ PlayMenuState::PlayMenuState(StateStack &stack, Context context) :
 	m_difficultyButton = difficulty;
 
 	gui::Button* play = new gui::Button(false, "Play", context.fonts->get(Default), *context.textures);
-	play->setPosition(100, 400);
+	play->setPosition(100, 350);
 	play->setCallback([this] ()
 	{
 		accessGlobalSettings().difficulty = m_difficulty;
@@ -41,7 +41,7 @@ PlayMenuState::PlayMenuState(StateStack &stack, Context context) :
 	m_container.pack(play);
 
 	gui::Button* cancel = new gui::Button(false, "Cancel", context.fonts->get(Default), *context.textures);
-	cancel->setPosition(100, 450);
+	cancel->setPosition(100, 400);
 	cancel->setCallback([this] ()
 	{
 		requestStackPop();

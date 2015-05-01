@@ -17,6 +17,7 @@ class DungeonRenderer : public sf::Drawable, public sf::Transformable
     public :
         DungeonRenderer(Dungeon const& dungeon, Context context);
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		void update(sf::Time dt);
         void onMouseMove(sf::Event::MouseMoveEvent event);
         void onMouseButtonPressed(sf::Event::MouseButtonEvent event);
 
@@ -34,6 +35,8 @@ class DungeonRenderer : public sf::Drawable, public sf::Transformable
         Context m_context;
         bool m_hasHoverTile;
         sf::Vector2u m_hoverTile;
+		sf::Time m_elapsedTime;
+		RectId m_heroRect;
 };
 
 #endif

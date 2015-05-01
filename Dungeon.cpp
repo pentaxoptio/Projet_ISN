@@ -144,63 +144,45 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 	
 	std::random_shuffle(xCoords.begin(), xCoords.end());
 	std::random_shuffle(yCoords.begin(), yCoords.end());
-    std::cout<< __LINE__ << std::endl;
 	m_grid[x1][y1] = Keep::Air;
 
-    std::cout<< __LINE__ << std::endl;
 	for (int cpt(0); cpt <= xCoords.size(); ++cpt)
-    {
-        std::cout<< __LINE__ << std::endl;
-        if (cpt < xCoords.size())//on ajoute ou retire 1 des x de la ou on est pour créer un chemin
-        {
-            std::cout<< __LINE__ << std::endl;
-            if (x1 += xCoords[cpt] >0 )//si on ne vas pas vers l'exterieur gauche
+	{
+		if (cpt < xCoords.size())//on ajoute ou retire 1 des x de la ou on est pour créer un chemin
+		{
+            if (x1 + xCoords[cpt] >0 )//si on ne vas pas vers l'exterieur gauche
             {
-                std::cout<< __LINE__ << std::endl;
-                if (x1 += xCoords[cpt] < xCoords.size() )//et ni vers l'exterieur droite
+				if (x1 + xCoords[cpt] < m_grid.size() )//et ni vers l'exterieur droite
                 {
-                    std::cout<< __LINE__ << std::endl;
-                   // continue; // si on ne depasse ni a droite ni a gauche c est bon
+					// continue; // si on ne depasse ni a droite ni a gauche c est bon
                 }
                 else //si on vas vers la droite on rajoute on supprime le +1 qui va vers la droite et on le met a la fin pour que ca ne pose plus probleme
                 {
-                    std::cout<< __LINE__ << std::endl;
                     xCoords.erase(xCoords.begin()+cpt);
                     xCoords.push_back(1);
-
                 }
             }
-
             else// si on vas vers l'exterieur gauche on supprime le -1 et on le rajoute en fin de liste
             {
-                std::cout<< __LINE__ << std::endl;
                 xCoords.erase(xCoords.begin()+cpt);
                 xCoords.push_back(-1);
             }
-            std::cout<< __LINE__ << std::endl;
             x1 += xCoords[cpt];
         }
     }
-	for (unsigned int cpt(0); cpt <= xCoords.size(); ++cpt)
+	
+	for (unsigned int cpt(0); cpt <= yCoords.size(); ++cpt)
 	{
-		if (cpt < xCoords.size())
-			x1 += xCoords[cpt];
-		
-		if (cpt < yCoords.size())
-			y1 += yCoords[cpt];
-
-		
         if (cpt < yCoords.size())
         {
-            std::cout<< __LINE__ << std::endl;
-            if (y1 += yCoords[cpt] >0 )//si on ne vas pas vers l'exterieur haut
-            {std::cout<< __LINE__ << std::endl;
-                if (y1 += yCoords[cpt] < yCoords.size() )//et ni vers l'exterieur bas
-                {std::cout<< __LINE__ << std::endl;
+            if (y1 + yCoords[cpt] >0 )//si on ne vas pas vers l'exterieur haut
+            {
+                if (y1 + yCoords[cpt] < m_grid.size() )//et ni vers l'exterieur bas
+                {
                     continue; // si on ne depasse ni en haut ni en bas
                 }
                 else //si on vas vers le bas on rajoute on supprime le +1 qui va vers le bas et on le met a la fin pour que ca ne pose plus probleme
-                {std::cout<< __LINE__ << std::endl;
+                {
                     yCoords.erase(yCoords.begin()+cpt);
                     yCoords.push_back(1);
                 }
@@ -212,7 +194,6 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 
             }
             y1 += yCoords[cpt];
-            std::cout<< __LINE__ << std::endl;
         }
 
     std::cout<< __LINE__ << std::endl;
@@ -223,7 +204,6 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
             if(x1+1<m_grid.size() )
                 m_grid[x1+1][y1]= Keep::Air;
 		//}
-
     std::cout<< __LINE__ << std::endl;
 	}
 

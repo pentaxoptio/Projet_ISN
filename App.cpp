@@ -67,6 +67,8 @@ void App::registerTextures()
 	m_textures.registerRect(Wall, sf::IntRect(24, 0, 24, 24));
 	m_textures.registerRect(Stairs, sf::IntRect(48, 0, 24, 24));
     m_textures.registerTexture(Hero, "res/tex/player.png");
+	m_textures.registerRect(Player1, sf::IntRect(0, 0, 24, 48));
+	m_textures.registerRect(Player2, sf::IntRect(24, 0, 24, 48));
     m_textures.registerTexture(Effects, "res/tex/effects.png");
 	m_textures.registerRect(RedEffect, sf::IntRect(0, 0, 24, 24));
 	m_textures.registerTexture(Buttons, "res/tex/buttons.png");
