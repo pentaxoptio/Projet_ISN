@@ -7,6 +7,8 @@ DungeonRenderer::DungeonRenderer(Dungeon const& dungeon, Context context) :
 	, m_context(context)
 	, m_hasHoverTile(false)
 	, m_hoverTile(0, 0)
+	, m_elapsedTime(sf::Time::Zero)
+	, m_heroRect(Player1)
 {
 	
 }
@@ -23,7 +25,7 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) co
 	sAir.setScale(scales);
 	sf::Sprite sStairs(m_context.textures->getTexture(Tiles), m_context.textures->getRect(Stairs));
 	sStairs.setScale(scales);
-	sf::Sprite sPlayer(m_context.textures->getTexture(Hero));
+	sf::Sprite sPlayer(m_context.textures->getTexture(Hero), m_context.textures->getRect(m_heroRect));
 	sPlayer.setScale(scales);
 	sf::Sprite sRedEffect(m_context.textures->getTexture(Effects), m_context.textures->getRect(RedEffect));
 	sRedEffect.setScale(scales);
@@ -76,6 +78,19 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) co
 				target.draw(sPlayer);
 			}
 		}
+}
+
+void DungeonRenderer::update(sf::Time dt)
+{
+	m_elapsedTime += dt;
+	if (m_elapsedTime >= sf::milliseconds(700))
+	{
+		 m_elapsedTime = sf::Time::Zero;
+		 if (m_heroRect == Player1)
+			 m_heroRect = Player2;
+		 else
+			 m_heroRect = Player1;
+	}
 }
 
 void DungeonRenderer::onMouseMove(sf::Event::MouseMoveEvent event)

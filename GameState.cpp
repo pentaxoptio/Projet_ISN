@@ -22,9 +22,10 @@ void GameState::render()
 	getContext().window->draw(m_renderer);
 }
 
-bool GameState::update(sf::Time)
+bool GameState::update(sf::Time dt)
 {
-	return true; //lol
+	m_renderer.update(dt);
+	return true;
 }
 
 bool GameState::handleEvent(sf::Event const& event)
