@@ -208,6 +208,8 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
     }
 
 }
+
+
 void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
 {
     int lenth = (int)std::floor((double)xPositions.size() );
@@ -217,6 +219,7 @@ void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
         createWay(xPositions[cpt], yPositions[cpt], xPositions [cpt+1], yPositions[cpt+1]);
         ++cpt;
         ++cpt;
+        std::cout<<"on connecte [" << xPositions[cpt] << " : "<< yPositions[cpt] <<"] a   ["<< xPositions[cpt+1] << " : " << yPositions[cpt+1]<< "]"<< std::endl;
         std::cout << "nbr de create way fait" << cpt/2 << std::endl;
     }
 }
