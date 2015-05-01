@@ -30,6 +30,10 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) co
 	sf::Sprite sRedEffect(m_context.textures->getTexture(Effects), m_context.textures->getRect(RedEffect));
 	sRedEffect.setScale(scales);
 
+	//AFFICHER LES COORD DE CHAQUE CASE -> à commenter pour supprimer l'affichage
+	sf::Text sText("", m_context.fonts->get(Default), 10);
+	sText.setOrigin(sf::Vector2f(22.f, 5.f));
+
 	sf::Vector2u player = m_dungeon.getPlayerPosition();
 	sf::Vector2f winCenter = m_context.window->getView().getCenter();
 	//LL'origine des cases est en leur centre :
@@ -77,6 +81,12 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) co
 				sPlayer.setPosition(pos);
 				target.draw(sPlayer);
 			}
+			//AFFICHER LES COORDS DE CHAQUE CASE
+			
+			sText.setPosition(pos);
+			sText.setString("[" + std::to_string(i) + "; " + std::to_string(j) + "]");
+			target.draw(sText);
+
 		}
 }
 

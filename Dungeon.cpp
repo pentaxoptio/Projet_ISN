@@ -111,7 +111,6 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 
     /* VARIABLE MAX NON UTILISÉE -------------------------
     int max = 0; //nombre max de 1 et de -1 dans une liste. Permet a une liste de continuer alors que l'autre est finie
-
 */
     if (xDiff+xDetour > yDiff + yDetour)
         max = xDiff + xDetour;
