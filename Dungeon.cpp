@@ -187,7 +187,8 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
                 }
             }
             else    // si on vas trop vers le bas on supprime le -1 et on le rajoute en fin de liste
-            {std::cout<< __LINE__ << std::endl;
+            {
+                std::cout<< __LINE__ << std::endl;
                 yCoords.erase(yCoords.begin()+cpt);
                 yCoords.push_back(-1);
 
@@ -205,10 +206,13 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
         //}
     std::cout<< __LINE__ << std::endl;
     }
-
+    std::cout<< __LINE__ << std::endl;
 }
 
-
+/* entrée : deux vector contenant chacun les coordonées x  /y des salles créées
+ * sortie : rien => on appelle create way qui modifie directement le donjon
+ * description : On lie toute les salles grace a la fonction createWay. Cette fonction sers a faire en sorte que toute les salles soient liées
+ */
 void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
 {
     int lenth = (int)std::floor((double)xPositions.size() );
