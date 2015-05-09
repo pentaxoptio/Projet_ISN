@@ -14,6 +14,9 @@ class GameState : public State
 		virtual bool update(sf::Time dt);
 		virtual bool handleEvent(sf::Event const& event);
 
+		void requestPlayerMove(sf::Vector2u newPos);
+		void requestPlayerAttack(sf::Vector2u target);
+
 	private :
 		Dungeon m_dungeon;
 		DungeonRenderer m_renderer;

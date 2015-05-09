@@ -7,6 +7,8 @@
 #include "Dungeon.h"
 #include "Utils.h"
 
+class GameState;
+
 struct RenderConfig
 {
     float tileSize;
@@ -16,7 +18,7 @@ struct RenderConfig
 class DungeonRenderer : public sf::Drawable, public sf::Transformable
 {
     public :
-        DungeonRenderer(Dungeon const& dungeon, Context context);
+        DungeonRenderer(Dungeon const& dungeon, Context context, GameState& game);
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 		void update(sf::Time dt);
         void onMouseMove(sf::Event::MouseMoveEvent event);
@@ -34,6 +36,7 @@ class DungeonRenderer : public sf::Drawable, public sf::Transformable
         Dungeon const& m_dungeon;
         RenderConfig m_conf;
         Context m_context;
+		GameState& m_game; //référence vers la GameState (nécessaire pour traiter les events
         bool m_hasHoverTile;
         sf::Vector2u m_hoverTile;
 		sf::Time m_elapsedTime;
