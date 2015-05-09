@@ -264,6 +264,9 @@ std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
                 std::cout <<" point de depart : " << depart << std::endl;
         }
 
+
+
+
     return direction;
 }
 
