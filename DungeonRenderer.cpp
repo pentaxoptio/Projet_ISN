@@ -9,6 +9,8 @@ DungeonRenderer::DungeonRenderer(Dungeon const& dungeon, Context context, GameSt
 	, m_game(game)
 	, m_hasHoverTile(false)
 	, m_hoverTile(0, 0)
+	, m_hasSelectedTile(false)
+	, m_selectedTile(0, 0)
 	, m_elapsedTime(sf::Time::Zero)
 	, m_heroRect(Player1)
 {
@@ -31,6 +33,8 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) co
 	sPlayer.setScale(scales);
 	sf::Sprite sRedEffect(m_context.textures->getTexture(Effects), m_context.textures->getRect(RedEffect));
 	sRedEffect.setScale(scales);
+	//sf::Sprite sBlueEffect(m_context.textures->getTexture(Effects), m_context.textures->getRect(BlueEffect));
+	//sBlueEffect.setScale(scales);
 
 	//AFFICHER LES COORD DE CHAQUE CASE -> sera rendu seulement si configuré pour
 	sf::Text sText("", m_context.fonts->get(Default), 10);
@@ -72,7 +76,12 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) co
 					break;
 			}
 			
-			if (m_hasHoverTile && m_hoverTile.x == i && m_hoverTile.y == j)
+			/*if (m_hasSelectedTile && m_selectedTile.x == i && m_selectedTile.y == j)
+			{
+				sBlueEffect.setPosition(pos);
+				target.draw(sBlueEffect);
+			}
+			else */if (m_hasHoverTile && m_hoverTile.x == i && m_hoverTile.y == j)
 			{
 				sRedEffect.setPosition(pos);
 				target.draw(sRedEffect);
@@ -136,6 +145,14 @@ void DungeonRenderer::onMouseButtonPressed(sf::Event::MouseButtonEvent event)
 		if (m_hasHoverTile)
 		{
 			m_game.requestPlayerMove(m_hoverTile);
+		}
+	}
+	else if (event.button == sf::Mouse::Right)
+	{
+		if (m_hasHoverTile)
+		{
+			m_selectedTile = m_hoverTile;
+			m_hasSelectedTile = true;
 		}
 	}
 }
