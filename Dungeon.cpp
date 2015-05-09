@@ -171,19 +171,19 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
     std::random_shuffle(xCoords.begin(), xCoords.end()); // On melange les listes pour que le chemin ait un detour aléatoire
     std::random_shuffle(yCoords.begin(), yCoords.end());
 
+
+
     for(int cpt(0); cpt < xCoords.size(); ++cpt)
     {
-     xCoords= dontGetOutX(x1,xCoords);
-     yCoords= dontGetOutY(y1,yCoords);
-     x1= x1+xCoords[cpt];
-     y1= y1+yCoords[cpt];
-    m_grid[x1][y1] = Keep::Air;
+        //en cas d'echec deplacer juste apres le for
+        xCoords= dontGetOutX(x1,xCoords);
+        yCoords= dontGetOutY(y1,yCoords);
 
-         //if (m_grid[x1-1][y1]== Keep::Wall)//Pour eviter qu'il y ait des chemins trop moches ( pas besoin de rajouter un air si pas besoin)
-        //{
-         //   if(x1+1<m_grid.size() )
-           //     m_grid[x1+1][y1]= Keep::Air;
-        //}
+        draw(x1,y1,xCoords[cpt],yCoords[cpt]);
+        x1= x1+xCoords[cpt];
+        y1= y1+yCoords[cpt];
+
+        m_grid[x1][y1] = Keep::Air;
 
     }
 }
@@ -198,7 +198,7 @@ void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
 {
 /*
 
- * Gerer dans la fonction soit apres les connection impossibles
+ * Gerer dans la fonction soit apres,  les connection impossibles
 
 */
 
@@ -236,7 +236,7 @@ void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
 
 std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
 {
-    std::cout <<'entréeee dans Dont GEt Out :* ' << std::endl;
+    std::cout <<"entréeee dans Dont GEt Out X " << std::endl;
     for (int cpt(0); cpt <= direction.size(); ++cpt)
        {
            if (cpt < direction.size() )//Tant qu'on n'a pas fini le chemin, on ajoute ou retire 1 des x ou y  de la ou on est pour créer un chemin
@@ -260,8 +260,9 @@ std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
                }
 
            }
+                std::cout <<" point de depart X : " << depart << std::endl;
                 depart += direction[cpt];//on fait avancer le pt de depart
-                std::cout <<" point de depart : " << depart << std::endl;
+                std::cout <<" point de arivée X : " << depart << std::endl;
         }
 
 
@@ -270,9 +271,10 @@ std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
     return direction;
 }
 
+
 std::vector<int> Dungeon::dontGetOutY(int depart,std::vector<int> direction)
 {
-    std::cout <<'entréeee dans Dont GEt Out :* ' << std::endl;
+    std::cout <<"entréeee dans Dont GEt Out Y " << std::endl;
     for (int cpt(0); cpt <= direction.size(); ++cpt)
        {
            if (cpt < direction.size() )//Tant qu'on n'a pas fini le chemin, on ajoute ou retire 1 des x ou y  de la ou on est pour créer un chemin
@@ -296,9 +298,53 @@ std::vector<int> Dungeon::dontGetOutY(int depart,std::vector<int> direction)
                }
 
            }
+                std::cout <<" point de depart Y : " << depart << std::endl;
                 depart += direction[cpt];//on fait avancer le pt de depart
-                std::cout <<" point de depart : " << depart << std::endl;
+                std::cout <<" point de arivée Y : " << depart << std::endl;
         }
 
     return direction;
+}
+
+
+void Dungeon::draw(int xPosition, int yPosition, int xDirection, int yDirection)
+{
+    std::cout<< " DRAWWWWWW   xDirection " << xDirection << "  yDirection  " << yDirection << std::endl;
+    if(xDirection==1 && yDirection==-1)//si on monte en diagonale en haut a droite
+    {
+        if(m_grid[xPosition-1][yPosition-1]== Keep::Wall && m_grid[xPosition+1][yPosition+1]== Keep::Wall )//et qu'il y a du mur de telle maniere a ce que le personnage ne puisse passer
+        {
+            std::cout << " +1 et -1 " << std::endl;
+            m_grid[xPosition+1][yPosition+1]= Keep::Air;
+
+        }
+    }
+
+    if(xDirection==1 && yDirection==1)//diagonale vers bas droite
+    {
+        std::cout << "+1 et +1 premier etape" <<std::endl;
+        if(m_grid[xPosition-1][yPosition+1]== Keep::Wall && m_grid[xPosition+1][yPosition-1]== Keep::Wall )
+        {
+            m_grid[xPosition+1][yPosition-1]= Keep::Air;
+            std::cout << " +1 et +1 " << std::endl;
+        }
+    }
+
+    if(xDirection==-1 && yDirection==1)//diagonale vers bas gauche
+    {
+        if(m_grid[xPosition-1][yPosition-1]== Keep::Wall && m_grid[xPosition+1][yPosition+1]== Keep::Wall )
+        {
+            m_grid[xPosition+1][yPosition+1]= Keep::Air;
+            std::cout << " -1 et +1 " << std::endl;
+        }
+    }
+
+    if(xDirection==-1 && yDirection==-1)//diagonale vers haut gauche
+    {
+        if(m_grid[xPosition+1][yPosition-1]== Keep::Wall && m_grid[xPosition-1][yPosition+1]== Keep::Wall )
+        {
+            m_grid[xPosition-1][yPosition+1]= Keep::Air;
+            std::cout << " -1 et -1 " << std::endl;
+        }
+    }
 }

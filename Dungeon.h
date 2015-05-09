@@ -35,6 +35,7 @@ class Dungeon
 		void connect(std::vector<int> xPositions, std::vector<int> yPositions);
         std::vector<int> dontGetOutX(int depart, std::vector<int> direction);
         std::vector<int> dontGetOutY(int depart, std::vector<int> direction);
+        void draw(int xPosition, int yPosition, int xDirection, int yDirection);
     private :
         Grid m_grid;
         Player m_player;
