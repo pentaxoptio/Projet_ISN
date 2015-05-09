@@ -33,7 +33,8 @@ class Dungeon
 		void placeRooms(int roomsCount);
 		void createWay(int x, int y, int xDest, int yDest);
 		void connect(std::vector<int> xPositions, std::vector<int> yPositions);
-
+        std::vector<int> dontGetOutX(int depart, std::vector<int> direction);
+        std::vector<int> dontGetOutY(int depart, std::vector<int> direction);
     private :
         Grid m_grid;
         Player m_player;
