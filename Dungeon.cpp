@@ -86,7 +86,7 @@ void Dungeon::placeRooms(int roomsCount)
             rooms.push_back(newRoom);
             xRooms.push_back(newRoom.left+(newRoom.width/2)); //pour demarer le chemin au milleu de la salle
             yRooms.push_back(newRoom.top+(newRoom.height/2));
-            std::cout<< newRoom.left+(newRoom.width/2) << " IXI  " << newRoom.top+(newRoom.height/2)<<std::endl;
+            std::cout<< newRoom.left+(newRoom.width/2) << " x | y  " << newRoom.top+(newRoom.height/2)<<std::endl;
             ++cpt;
         }
         else
@@ -97,11 +97,12 @@ void Dungeon::placeRooms(int roomsCount)
         for (int x(xPosition); x < xPositionMax; ++x)
             for (int y(yPosition); y < yPositionMax; ++y)
                 m_grid[x][y] = Keep::Air;
-        std::cout << "nbr de pieces : " << cpt <<  std::endl;
+
     } //end while
 
     m_player.setPosition(sf::Vector2u(xRooms[0], yRooms[0]));//on place le joueur au centre d'une salle
     connect(xRooms, yRooms);
+    m_grid[xRooms[roomsCount-1]][yRooms[roomsCount-1]]= Keep::Stairs;//on met un escalier dans la derniere salle crée
 }
 
 /* entrée : 4 int ; ce sont les coordonées de deux point a relier, ici le millieu de deux salles
@@ -111,28 +112,12 @@ void Dungeon::placeRooms(int roomsCount)
 
 void Dungeon::createWay(int x, int y, int xDest, int yDest)
 {
-
-    /* A verifier
-    if(x>xDest)//Pour que x soit bien le + a gauche
-    {
-        int a= x;
-        x=xDest;
-        xDest=a;
-    }
-    if(y>yDest)//Pour que y soit bien le + en haut (le + petit)
-    {
-        int a= y;
-        y=yDest;
-        yDest=a;
-    }
-    */
-
-    int xDiff = xDest - x;
+    int xDiff = abs(xDest - x);
     int x1 = x;//x créé pour désindanté lors de la toute premiere version
     int y1 = y;
-    int yDiff = yDest - y;
-    int xDetour =  10 /*rand()%5 + 5*/;
-    int yDetour = 10  /*rand()%5 + 5*/;
+    int yDiff = abs(yDest - y);
+    int xDetour =  1 /*rand()%5 + 5*/;
+    int yDetour = 1  /*rand()%5 + 5*/;
 
     std::cout << "          xdiff   " << xDiff << "  yDiff  "<<  yDiff<< "  x detour  " << xDetour<< "y detour  "<< yDetour << std::endl;
 
@@ -140,8 +125,14 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
     std::vector<int> yCoords;//on crée un liste de mouvement des y ( +1 , 0 ou -1)
     std::vector<int> xCoords;
 
-    for (int cpt(0); cpt < xDiff; ++cpt)//on crée un bon nombre de mouvenement positifs
-        xCoords.push_back(1);
+    if(x1<xDest)
+    {
+        for (int cpt(0); cpt < xDiff; ++cpt)//on crée un bon nombre de mouvenement positifs
+            xCoords.push_back(1);
+    }
+    else
+        for (int cpt(0); cpt < xDiff; ++cpt)//on crée un bon nombre de mouvenement positifs
+            xCoords.push_back(-1);
 
 
 
@@ -151,9 +142,15 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
         xCoords.push_back(1);
     }
 
+    if(y1<yDest)
+    {
+        for (int cpt(0); cpt < yDiff; ++cpt) // on fait la meme chose pour les Y
+            yCoords.push_back(1);
+    }
+    else
+        for(int cpt(0); cpt< yDiff; ++cpt)
+            yCoords.push_back(-1);
 
-    for (int cpt(0); cpt < yDiff; ++cpt) // on fait la meme chose pour les Y
-        yCoords.push_back(1);
     for (int cpt(0); cpt < yDetour; ++cpt)
     {
         yCoords.push_back(-1);
@@ -196,47 +193,23 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 
 void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
 {
-/*
-
- * Gerer dans la fonction soit apres,  les connection impossibles
-
-*/
-
-    for(int x(0); x<xPositions.size() ; ++x)
-    {
-        std::cout << x <<"  x : "<< xPositions[x]<< "  y : "<< yPositions[x] << std::endl;
-    }
-
     int lenth = xPositions.size();
     int cpt(0);
     while (cpt < lenth)//
     {
-        std::cout<<"on connecte [" << int(xPositions[cpt]) << " : "<< int(yPositions[cpt]) <<"] a   ["<< xPositions[cpt+1] << " : " << yPositions[cpt+1]<< "]"<< std::endl;
-
-
         if(cpt+1 < lenth)
         {
+            std::cout<<"on connecte [" << int(xPositions[cpt]) << " : "<< int(yPositions[cpt]) <<"] a   ["<< xPositions[cpt+1] << " : " << yPositions[cpt+1]<< "]"<< std::endl;
             createWay(xPositions[cpt], yPositions[cpt], xPositions [cpt+1], yPositions[cpt+1]);
-            //createWay(0,0,10,10);
-            std::cout<<"c est bon"<<std::endl;
-            //createWay(15,15,30,30);
-            std::cout<<"c est bon"<<std::endl;
-            ++cpt;
             ++cpt;
         }
-       //  else //au cas ou le nombre de salle est impair
-           // createWay(xPositions[cpt], yPositions[cpt], xPositions[1],yPositions[1]);
-
-       // std::cout << "nbr de create way fait" << cpt/2 << std::endl;
-
+        else
+            ++cpt;//pour eviter une boucle infinie
     }
-
-
 }
 
 std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
 {
-    std::cout <<"entréeee dans Dont GEt Out X " << std::endl;
     for (int cpt(0); cpt <= direction.size(); ++cpt)
        {
            if (cpt < direction.size() )//Tant qu'on n'a pas fini le chemin, on ajoute ou retire 1 des x ou y  de la ou on est pour créer un chemin
@@ -260,10 +233,9 @@ std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
                }
 
            }
-                std::cout <<" point de depart X : " << depart << std::endl;
+
                 depart += direction[cpt];//on fait avancer le pt de depart
-                std::cout <<" point de arivée X : " << depart << std::endl;
-        }
+    }
 
 
 
@@ -274,7 +246,7 @@ std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
 
 std::vector<int> Dungeon::dontGetOutY(int depart,std::vector<int> direction)
 {
-    std::cout <<"entréeee dans Dont GEt Out Y " << std::endl;
+
     for (int cpt(0); cpt <= direction.size(); ++cpt)
        {
            if (cpt < direction.size() )//Tant qu'on n'a pas fini le chemin, on ajoute ou retire 1 des x ou y  de la ou on est pour créer un chemin
@@ -298,53 +270,59 @@ std::vector<int> Dungeon::dontGetOutY(int depart,std::vector<int> direction)
                }
 
            }
-                std::cout <<" point de depart Y : " << depart << std::endl;
                 depart += direction[cpt];//on fait avancer le pt de depart
-                std::cout <<" point de arivée Y : " << depart << std::endl;
         }
 
     return direction;
 }
 
+    /* entrée : deux int pour la position et deux autre pour la direction que la prendre le joueur ( +1 ; 0 ; -1 )
+     * sortie : rien => on modifie directement le donjon
+     * description : Cette fonction sers lors de la creation de chemin; Le joueur ne peut se deplacer directement en diagonale (entre deux coins de murs)
+     * Donc cette fonction sers a rajouter un air pour que la diagonale se transforme en escalier [exemple en dessous]
+     *          a w w   |   a w w               avant | apres
+     *          w a w   |   a a w               On voit bien l'endroit ou a été créé le a
+     *          w w a   |   w a a
+     * Cette fonction ne crée un a que si c est une diagonale parfaire ( comme dans avant )
+     */
 
 void Dungeon::draw(int xPosition, int yPosition, int xDirection, int yDirection)
 {
-    std::cout<< " DRAWWWWWW   xDirection " << xDirection << "  yDirection  " << yDirection << std::endl;
+
     if(xDirection==1 && yDirection==-1)//si on monte en diagonale en haut a droite
     {
-        if(m_grid[xPosition-1][yPosition-1]== Keep::Wall && m_grid[xPosition+1][yPosition+1]== Keep::Wall )//et qu'il y a du mur de telle maniere a ce que le personnage ne puisse passer
+        if(m_grid[xPosition][yPosition-1]== Keep::Wall && m_grid[xPosition+1][yPosition]== Keep::Wall )//et qu'il y a du mur de telle maniere a ce que le personnage ne puisse passer
         {
-            std::cout << " +1 et -1 " << std::endl;
-            m_grid[xPosition+1][yPosition+1]= Keep::Air;
+
+            m_grid[xPosition+1][yPosition]= Keep::Air;
 
         }
     }
 
     if(xDirection==1 && yDirection==1)//diagonale vers bas droite
     {
-        std::cout << "+1 et +1 premier etape" <<std::endl;
-        if(m_grid[xPosition-1][yPosition+1]== Keep::Wall && m_grid[xPosition+1][yPosition-1]== Keep::Wall )
+
+        if(m_grid[xPosition][yPosition+1]== Keep::Wall && m_grid[xPosition+1][yPosition]== Keep::Wall )
         {
-            m_grid[xPosition+1][yPosition-1]= Keep::Air;
-            std::cout << " +1 et +1 " << std::endl;
+            m_grid[xPosition+1][yPosition]= Keep::Air;
+
         }
     }
 
     if(xDirection==-1 && yDirection==1)//diagonale vers bas gauche
     {
-        if(m_grid[xPosition-1][yPosition-1]== Keep::Wall && m_grid[xPosition+1][yPosition+1]== Keep::Wall )
+        if(m_grid[xPosition-1][yPosition]== Keep::Wall && m_grid[xPosition][yPosition+1]== Keep::Wall )
         {
-            m_grid[xPosition+1][yPosition+1]= Keep::Air;
-            std::cout << " -1 et +1 " << std::endl;
+            m_grid[xPosition][yPosition+1]= Keep::Air;
+
         }
     }
 
     if(xDirection==-1 && yDirection==-1)//diagonale vers haut gauche
     {
-        if(m_grid[xPosition+1][yPosition-1]== Keep::Wall && m_grid[xPosition-1][yPosition+1]== Keep::Wall )
+        if(m_grid[xPosition-1][yPosition]== Keep::Wall && m_grid[xPosition][yPosition-1]== Keep::Wall )
         {
-            m_grid[xPosition-1][yPosition+1]= Keep::Air;
-            std::cout << " -1 et -1 " << std::endl;
+            m_grid[xPosition][yPosition-1] = Keep::Air;
         }
     }
 }
