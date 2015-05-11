@@ -5,7 +5,8 @@
 
 Dungeon::Dungeon():
     m_grid() ,
-    m_player()
+    m_player() ,
+	m_ennemies()
 {
     m_player.setPosition(sf::Vector2u(40, 35));
     int roomsCount = 10; //à modifier
@@ -175,6 +176,7 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
         //en cas d'echec deplacer juste apres le for
         xCoords= dontGetOutX(x1,xCoords);
         yCoords= dontGetOutY(y1,yCoords);
+
         diagonal(x1,y1,xCoords[cpt],yCoords[cpt]);
         x1= x1+xCoords[cpt];
         y1= y1+yCoords[cpt];
