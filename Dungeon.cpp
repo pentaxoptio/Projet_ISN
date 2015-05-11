@@ -5,7 +5,8 @@
 
 Dungeon::Dungeon():
     m_grid() ,
-    m_player()
+    m_player() ,
+	m_ennemies()
 {
     m_player.setPosition(sf::Vector2u(40, 35));
     int roomsCount = 10; //à modifier

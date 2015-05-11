@@ -2,6 +2,7 @@
 #define DUNGEON_H
 
 #include "Player.h"
+#include "Ennemy.h"
 
 #include <vector>
 #include <SFML/Graphics.hpp>
@@ -36,9 +37,11 @@ class Dungeon
         std::vector<int> dontGetOutX(int depart, std::vector<int> direction);
         std::vector<int> dontGetOutY(int depart, std::vector<int> direction);
         void draw(int xPosition, int yPosition, int xDirection, int yDirection);
+		
     private :
         Grid m_grid;
         Player m_player;
+		std::vector<Ennemy> m_ennemies;
 };
 
 #endif
