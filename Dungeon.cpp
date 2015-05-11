@@ -2,19 +2,56 @@
 #include "Dungeon.h"
 #include <time.h>
 #include <stdlib.h>
+#include "GameState.h"
 
 Dungeon::Dungeon():
     m_grid() ,
     m_player() ,
 	m_ennemies()
 {
-    m_player.setPosition(sf::Vector2u(40, 35));
-    int roomsCount = 10; //à modifier
-    std::srand((unsigned int)std::time(0));
-    int width = rand() % 25 + 75,
-        height = rand() % 15 + 50;
-    m_grid = Grid(width, std::vector<Keep::Tile>(height, Keep::Wall));
-    placeRooms(roomsCount);
+    GameState::State
+            difficulty = getGlobalSettings().difficulty;
+
+    Dungeon::setDifficulty(difficulty);
+    // appeler une fonction et y mettre le code du contructeur
+}
+
+void Dungeon::setDifficulty(Difficulty diff)
+{
+
+    std::cout << "Difficulté choisie : ";
+    if (diff == Easy)
+    {
+        m_player.setPosition(sf::Vector2u(40, 35));
+        std::srand((unsigned int)std::time(0));
+        int roomsCount = 7; //à modifier
+        int width = rand() % 25 + 65,
+            height = rand() % 15 + 40;
+        m_grid = Grid(width, std::vector<Keep::Tile>(height, Keep::Wall));
+        placeRooms(roomsCount);
+    }
+
+    else if (diff == Normal)
+    {
+        m_player.setPosition(sf::Vector2u(40, 35));
+        std::srand((unsigned int)std::time(0));
+        int roomsCount = 12; //à modifier
+        int width = rand() % 25 + 75,
+            height = rand() % 15 + 50;
+        m_grid = Grid(width, std::vector<Keep::Tile>(height, Keep::Wall));
+        placeRooms(roomsCount);
+    }
+    else
+    {
+        m_player.setPosition(sf::Vector2u(40, 35));
+        std::srand((unsigned int)std::time(0));
+        int roomsCount = 17; //à modifier
+        int width = rand() % 25 + 90,
+            height = rand() % 15 + 70;
+        m_grid = Grid(width, std::vector<Keep::Tile>(height, Keep::Wall));
+        placeRooms(roomsCount);
+    }
+
 }
 
 void Dungeon::playerMove(unsigned int x, unsigned int y)
@@ -117,8 +154,8 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
     int x1 = x;//x créé pour désindanté lors de la toute premiere version
     int y1 = y;
     int yDiff = abs(yDest - y);
-    int xDetour =  1 /*rand()%5 + 5*/;
-    int yDetour = 1  /*rand()%5 + 5*/;
+    int xDetour =  rand()%5 + 5;
+    int yDetour = rand()%5 + 5;
 
     std::cout << "          xdiff   " << xDiff << "  yDiff  "<<  yDiff<< "  x detour  " << xDetour<< "y detour  "<< yDetour << std::endl;
 
@@ -198,7 +235,7 @@ void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
     int cpt(0);
     while (cpt < lenth)//
     {
-        if(cpt+1 < lenth)
+        if(cpt < lenth)
         {
             std::cout<<"on connecte [" << int(xPositions[cpt]) << " : "<< int(yPositions[cpt]) <<"] a   ["<< xPositions[cpt+1] << " : " << yPositions[cpt+1]<< "]"<< std::endl;
             createWay(xPositions[cpt], yPositions[cpt], xPositions [cpt+1], yPositions[cpt+1]);
@@ -206,6 +243,7 @@ void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
         }
         else
             ++cpt;//pour eviter une boucle infinie
+        //surement a delet, a verifier
     }
 }
 
@@ -226,12 +264,24 @@ std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
                    {
                        direction.erase(direction.begin()+cpt);
                        direction.push_back(1);
+                       while(cpt+1 == 1)
+                       {
+                           direction.erase(direction.begin()+cpt);
+                           direction.push_back(1);
+                           ++cpt;
+                       }
                    }
                }
                else// si on vas vers l'exterieur gauche on supprime le -1 et on le rajoute en fin de liste
                {
                    direction.erase(direction.begin()+cpt);
                    direction.push_back(-1);
+                   while(cpt+1 == -1)
+                   {
+                       direction.erase(direction.begin()+cpt);
+                       direction.push_back(-1);
+                       ++cpt;
+                   }
                }
 
            }
@@ -290,7 +340,12 @@ std::vector<int> Dungeon::dontGetOutY(int depart,std::vector<int> direction)
 
 void Dungeon::diagonal(int xPosition, int yPosition, int xDirection, int yDirection)
 {
+
+
     //    /!\ au +1 et au +1 si ca sort du donjon, quoique ca ferai juste planter la fonction donc pas si grave
+    // faire en sorte que les chemins de passe pas a moins de 1 case des cotés.
+
+
 
     if(xDirection==1 && yDirection==-1)//si on monte en diagonale en haut a droite
     {
