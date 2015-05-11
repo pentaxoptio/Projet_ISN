@@ -175,8 +175,7 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
         //en cas d'echec deplacer juste apres le for
         xCoords= dontGetOutX(x1,xCoords);
         yCoords= dontGetOutY(y1,yCoords);
-
-        draw(x1,y1,xCoords[cpt],yCoords[cpt]);
+        diagonal(x1,y1,xCoords[cpt],yCoords[cpt]);
         x1= x1+xCoords[cpt];
         y1= y1+yCoords[cpt];
 
@@ -210,13 +209,14 @@ void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
 
 std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
 {
+    //  /!\ il peut il y avoir encore un +1 ou un -1 apres, verifier et les rajouter (2 ou plus au lieu d'un a la fin)
     for (int cpt(0); cpt <= direction.size(); ++cpt)
        {
            if (cpt < direction.size() )//Tant qu'on n'a pas fini le chemin, on ajoute ou retire 1 des x ou y  de la ou on est pour créer un chemin
            {
                if (depart + direction[cpt] > 0 )//si on ne sort pas vers l'exterieur haut ou gauche
                {
-                   if (depart + direction[cpt] < m_grid/*ICI rajouter [0] si on parle de largeur ou longueur*/.size() ) // et ni vers l'exterieur bas ou droite
+                   if (depart + direction[cpt] < m_grid.size() ) // et ni vers l'exterieur bas ou droite
                    {
                        continue; // si on ne depasse ni a droite ni a gauche c est bon
                    }
@@ -286,8 +286,9 @@ std::vector<int> Dungeon::dontGetOutY(int depart,std::vector<int> direction)
      * Cette fonction ne crée un a que si c est une diagonale parfaire ( comme dans avant )
      */
 
-void Dungeon::draw(int xPosition, int yPosition, int xDirection, int yDirection)
+void Dungeon::diagonal(int xPosition, int yPosition, int xDirection, int yDirection)
 {
+    //    /!\ au +1 et au +1 si ca sort du donjon, quoique ca ferai juste planter la fonction donc pas si grave
 
     if(xDirection==1 && yDirection==-1)//si on monte en diagonale en haut a droite
     {
