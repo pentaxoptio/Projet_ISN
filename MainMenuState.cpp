@@ -1,8 +1,8 @@
 #include "MainMenuState.h"
 
 MainMenuState::MainMenuState(StateStack &stack, Context context) :
-	State(stack, context)
-	, m_bg(context.textures->getTexture(TitleScreen))
+	State(stack, context) ,
+	m_bg(context.textures->getTexture(TitleScreen))
 {
 	gui::Button* play = new gui::Button(false, "Play", context.fonts->get(Default), *context.textures);
 	play->setPosition(100, 300);

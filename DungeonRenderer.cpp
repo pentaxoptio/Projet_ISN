@@ -3,16 +3,16 @@
 #include "GameState.h"
 
 DungeonRenderer::DungeonRenderer(Dungeon const& dungeon, Context context, GameState& game) :
-	m_dungeon(dungeon)
-	, m_conf({48.f, false})
-	, m_context(context)
-	, m_game(game)
-	, m_hasHoverTile(false)
-	, m_hoverTile(0, 0)
-	, m_hasSelectedTile(false)
-	, m_selectedTile(0, 0)
-	, m_elapsedTime(sf::Time::Zero)
-	, m_heroRect(Player1)
+	m_dungeon(dungeon) ,
+	m_conf({48.f, false}) ,
+	m_context(context) ,
+	m_game(game) ,
+	m_hasHoverTile(false) ,
+	m_hoverTile(0, 0) ,
+	m_hasSelectedTile(false) ,
+	m_selectedTile(0, 0) ,
+	m_elapsedTime(sf::Time::Zero) ,
+	m_heroRect(Player1)
 {
 	
 }

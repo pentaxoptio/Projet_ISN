@@ -2,9 +2,9 @@
 #include <iostream>
 
 GameState::GameState(StateStack &stack, Context context) :
-	State(stack, context)
-	, m_dungeon()
-	, m_renderer(m_dungeon, context, *this)
+	State(stack, context) ,
+	m_dungeon() ,
+	m_renderer(m_dungeon, context, *this)
 {
 	Difficulty dfclt = getGlobalSettings().difficulty;
 	std::cout << "Difficulté choisie : ";

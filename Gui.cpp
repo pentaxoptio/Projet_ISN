@@ -4,8 +4,8 @@
 using namespace gui;
 
 Component::Component() :
-	m_selected(false)
-	, m_activate(false)
+	m_selected(false) ,
+	m_activate(false)
 {
 	std::cout << "construction component" << std::endl;
 }

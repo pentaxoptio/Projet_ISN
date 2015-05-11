@@ -1,10 +1,10 @@
 #include "Ennemy.h"
 
 Ennemy::Ennemy(EnnemyType type) :
-	m_type(type)
-	, m_maxHealth(0)
-	, m_health(m_maxHealth)
-	, m_position(0, 0)
+	m_type(type) ,
+	m_maxHealth(0) ,
+	m_health(m_maxHealth) ,
+	m_position(0, 0)
 {
 	initializeParametersAfterType();
 }

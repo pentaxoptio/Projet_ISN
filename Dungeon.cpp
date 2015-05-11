@@ -4,8 +4,8 @@
 #include <stdlib.h>
 
 Dungeon::Dungeon():
-    m_grid()
-    ,m_player()
+    m_grid() ,
+    m_player()
 {
     m_player.setPosition(sf::Vector2u(40, 35));
     int roomsCount = 10; //à modifier

@@ -1,11 +1,11 @@
 #include "PlayMenuState.h"
 
 PlayMenuState::PlayMenuState(StateStack &stack, Context context) :
-	State(stack, context)
-	, m_bg(context.textures->getTexture(TitleScreen))
-	, m_container()
-	, m_difficultyButton(nullptr)
-	, m_difficulty(Normal)
+	State(stack, context) ,
+	m_bg(context.textures->getTexture(TitleScreen)) ,
+	m_container() ,
+	m_difficultyButton(nullptr) ,
+	m_difficulty(Normal)
 {
 	gui::Button* difficulty = new gui::Button(false, "Difficulty : Normal", context.fonts->get(Default), *context.textures);
 	difficulty->setPosition(100, 250);

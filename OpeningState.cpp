@@ -1,9 +1,9 @@
 #include "OpeningState.h"
 
 OpeningState::OpeningState(StateStack& stack, Context context) :
-	State(stack, context)
-	, m_logo(context.textures->getTexture(Logo))
-	, m_lifetime(sf::milliseconds(3500))
+	State(stack, context) ,
+	m_logo(context.textures->getTexture(Logo)) ,
+	m_lifetime(sf::milliseconds(3500))
 {
 	
 }

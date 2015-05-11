@@ -4,11 +4,11 @@
 using namespace gui;
 
 Button::Button(bool toggle, TextureHolder const &textures) :
-	m_textures(textures)
-	, m_sprite()
-	, m_text()
-	, m_callback()
-	, m_toggle(toggle)
+	m_textures(textures) ,
+	m_sprite() ,
+	m_text() ,
+	m_callback() ,
+	m_toggle(toggle)
 {
 	initSprite();
 	std::cout << "construction button" << std::endl;

@@ -1,9 +1,9 @@
 #include "Player.h"
 
 Player::Player() :
-	m_maxHealth(100)
-	, m_health(m_maxHealth)
-	, m_position(0, 0)
+	m_maxHealth(100) ,
+	m_health(m_maxHealth) ,
+	m_position(0, 0)
 {
 	
 }
