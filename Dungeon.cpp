@@ -177,7 +177,7 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
         xCoords= dontGetOutX(x1,xCoords);
         yCoords= dontGetOutY(y1,yCoords);
 
-        draw(x1,y1,xCoords[cpt],yCoords[cpt]);
+        diagonal(x1,y1,xCoords[cpt],yCoords[cpt]);
         x1= x1+xCoords[cpt];
         y1= y1+yCoords[cpt];
 
@@ -287,7 +287,7 @@ std::vector<int> Dungeon::dontGetOutY(int depart,std::vector<int> direction)
      * Cette fonction ne crée un a que si c est une diagonale parfaire ( comme dans avant )
      */
 
-void Dungeon::draw(int xPosition, int yPosition, int xDirection, int yDirection)
+void Dungeon::diagonal(int xPosition, int yPosition, int xDirection, int yDirection)
 {
 
     if(xDirection==1 && yDirection==-1)//si on monte en diagonale en haut a droite
