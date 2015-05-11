@@ -18,8 +18,6 @@ Dungeon::Dungeon():
 
 void Dungeon::setDifficulty(Difficulty diff)
 {
-
-    std::cout << "Difficulté choisie : ";
     if (diff == Easy)
     {
         m_player.setPosition(sf::Vector2u(40, 35));
@@ -124,7 +122,6 @@ void Dungeon::placeRooms(int roomsCount)
             rooms.push_back(newRoom);
             xRooms.push_back(newRoom.left+(newRoom.width/2)); //pour demarer le chemin au milleu de la salle
             yRooms.push_back(newRoom.top+(newRoom.height/2));
-            std::cout<< newRoom.left+(newRoom.width/2) << " x | y  " << newRoom.top+(newRoom.height/2)<<std::endl;
             ++cpt;
         }
         else
@@ -156,9 +153,6 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
     int yDiff = abs(yDest - y);
     int xDetour =  rand()%5 + 5;
     int yDetour = rand()%5 + 5;
-
-    std::cout << "          xdiff   " << xDiff << "  yDiff  "<<  yDiff<< "  x detour  " << xDetour<< "y detour  "<< yDetour << std::endl;
-
 
     std::vector<int> yCoords;//on crée un liste de mouvement des y ( +1 , 0 ou -1)
     std::vector<int> xCoords;
@@ -237,7 +231,6 @@ void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
     {
         if(cpt < lenth)
         {
-            std::cout<<"on connecte [" << int(xPositions[cpt]) << " : "<< int(yPositions[cpt]) <<"] a   ["<< xPositions[cpt+1] << " : " << yPositions[cpt+1]<< "]"<< std::endl;
             createWay(xPositions[cpt], yPositions[cpt], xPositions [cpt+1], yPositions[cpt+1]);
             ++cpt;
         }
