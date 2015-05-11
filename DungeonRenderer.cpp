@@ -9,18 +9,14 @@ DungeonRenderer::DungeonRenderer(Dungeon const& dungeon, Context context, GameSt
 	m_game(game) ,
 	m_hasHoverTile(false) ,
 	m_hoverTile(0, 0) ,
-	m_hasSelectedTile(false) ,
-	m_selectedTile(0, 0) ,
 	m_elapsedTime(sf::Time::Zero) ,
 	m_heroRect(Player1)
 {
 	
 }
 
-void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates) const
 {
-	states.transform *= getTransform();
-
 	sf::Vector2f scales(m_conf.tileSize/24.f, m_conf.tileSize/24.f);
 	
 	sf::Sprite sWall(m_context.textures->getTexture(Tiles), m_context.textures->getRect(Wall));
@@ -76,12 +72,7 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) co
 					break;
 			}
 			
-			/*if (m_hasSelectedTile && m_selectedTile.x == i && m_selectedTile.y == j)
-			{
-				sBlueEffect.setPosition(pos);
-				target.draw(sBlueEffect);
-			}
-			else */if (m_hasHoverTile && m_hoverTile.x == i && m_hoverTile.y == j)
+			if (m_hasHoverTile && m_hoverTile.x == i && m_hoverTile.y == j)
 			{
 				sRedEffect.setPosition(pos);
 				target.draw(sRedEffect);
@@ -145,14 +136,6 @@ void DungeonRenderer::onMouseButtonPressed(sf::Event::MouseButtonEvent event)
 		if (m_hasHoverTile)
 		{
 			m_game.requestPlayerMove(m_hoverTile);
-		}
-	}
-	else if (event.button == sf::Mouse::Right)
-	{
-		if (m_hasHoverTile)
-		{
-			m_selectedTile = m_hoverTile;
-			m_hasSelectedTile = true;
 		}
 	}
 }

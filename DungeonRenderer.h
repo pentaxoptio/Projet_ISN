@@ -15,7 +15,7 @@ struct RenderConfig
 	bool renderCoords;
 };
 
-class DungeonRenderer : public sf::Drawable, public sf::Transformable
+class DungeonRenderer : public sf::Drawable
 {
     public :
         DungeonRenderer(Dungeon const& dungeon, Context context, GameState& game);
@@ -39,8 +39,6 @@ class DungeonRenderer : public sf::Drawable, public sf::Transformable
 		GameState& m_game; //référence vers la GameState (nécessaire pour traiter les events
         bool m_hasHoverTile;
         sf::Vector2u m_hoverTile;
-		bool m_hasSelectedTile;
-		sf::Vector2u m_selectedTile;
 		sf::Time m_elapsedTime;
 		RectId m_heroRect;
 };
