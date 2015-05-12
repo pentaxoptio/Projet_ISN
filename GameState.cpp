@@ -42,6 +42,30 @@ bool GameState::handleEvent(sf::Event const& event)
 					conf.tileSize = conf.tileSize/2.f;
 				m_renderer.setRenderConfig(conf);
 				break;
+			case sf::Keyboard::Up :
+				pos = m_dungeon.getPlayerPosition();
+				if (pos.y > 0)
+					pos.y -= 1;
+				requestPlayerMove(pos);
+				break;
+			case sf::Keyboard::Down :
+				pos = m_dungeon.getPlayerPosition();
+				if (pos.y+1 < m_dungeon.getSize().y)
+					pos.y += 1;
+				requestPlayerMove(pos);
+				break;
+			case sf::Keyboard::Right :
+				pos = m_dungeon.getPlayerPosition();
+				if (pos.x+1 < m_dungeon.getSize().x)
+					pos.x += 1;
+				requestPlayerMove(pos);
+				break;
+			case sf::Keyboard::Left :
+				pos = m_dungeon.getPlayerPosition();
+				if (pos.x > 0)
+					pos.x -= 1;
+				requestPlayerMove(pos);
+				break;
 			default :
 				break;
 		}
