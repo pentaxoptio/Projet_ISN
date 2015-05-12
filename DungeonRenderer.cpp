@@ -5,6 +5,7 @@
 DungeonRenderer::DungeonRenderer(Dungeon const& dungeon, Context context, GameState& game) :
 	m_dungeon(dungeon) ,
 	m_conf({48.f, false}) ,
+	m_mask(dungeon.getSize().x, std::vector<MaskTile>(dungeon.getSize().y, Hidden)) ,
 	m_context(context) ,
 	m_game(game) ,
 	m_hasHoverTile(false) ,
@@ -12,7 +13,7 @@ DungeonRenderer::DungeonRenderer(Dungeon const& dungeon, Context context, GameSt
 	m_elapsedTime(sf::Time::Zero) ,
 	m_heroRect(Player1)
 {
-	
+	onPlayerMove(); //permet de mettre à jour le mask;
 }
 
 void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates) const
@@ -29,8 +30,9 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates) const
 	sPlayer.setScale(scales);
 	sf::Sprite sRedEffect(m_context.textures->getTexture(Effects), m_context.textures->getRect(RedEffect));
 	sRedEffect.setScale(scales);
-	//sf::Sprite sBlueEffect(m_context.textures->getTexture(Effects), m_context.textures->getRect(BlueEffect));
-	//sBlueEffect.setScale(scales);
+	sf::RectangleShape sDarkTile(sf::Vector2f(24.f, 24.f));
+	sDarkTile.setScale(scales);
+	sDarkTile.setFillColor(sf::Color(0, 0, 0, 127));
 
 	//AFFICHER LES COORD DE CHAQUE CASE -> sera rendu seulement si configuré pour
 	sf::Text sText("", m_context.fonts->get(Default), 10);
@@ -45,6 +47,7 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates) const
 	sStairs.setOrigin(origin);
 	sPlayer.setOrigin(sf::Vector2f(12.f, 24.f));
 	sRedEffect.setOrigin(origin);
+	sDarkTile.setOrigin(origin);
 
 	//Case en haut Ã  gauche, Ã  partir de laquelle on va calculer le rendu:
 	sf::Vector2f upLeft(winCenter.x - (float)player.x*m_conf.tileSize,
@@ -53,44 +56,53 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates) const
 	for (unsigned int i(0); i<m_dungeon.getSize().x; ++i)
 		for (unsigned int j(0); j<m_dungeon.getSize().y; ++j)
 		{
-			sf::Vector2f pos(upLeft.x + (float)i*m_conf.tileSize,
-					upLeft.y + (float)j*m_conf.tileSize);
-			switch (m_dungeon.getTile(i, j))
+			if (m_mask[i][j] != Hidden)
 			{
-				case Keep::Wall :
-					sWall.setPosition(pos);
-					target.draw(sWall);
-					break;
-				case Keep::Air :
-					sAir.setPosition(pos);
-					target.draw(sAir);
-					break;
-				case Keep::Stairs :
-					sStairs.setPosition(pos);
-					target.draw(sStairs);
-				default :
-					break;
-			}
-			
-			if (m_hasHoverTile && m_hoverTile.x == i && m_hoverTile.y == j)
-			{
-				sRedEffect.setPosition(pos);
-				target.draw(sRedEffect);
-			}	
-			
-			if (i == player.x && j == player.y)
-			{
-				sPlayer.setPosition(pos);
-				target.draw(sPlayer);
-			}
-			//AFFICHER LES COORDS DE CHAQUE CASE
-			if (m_conf.renderCoords)
-			{
-				sText.setPosition(pos);
-				sText.setString("[" + std::to_string(i) + "; " + std::to_string(j) + "]");
-				target.draw(sText);
-			}
+				sf::Vector2f pos(upLeft.x + (float)i*m_conf.tileSize,
+						upLeft.y + (float)j*m_conf.tileSize);
+				switch (m_dungeon.getTile(i, j))
+				{
+					case Keep::Wall :
+						sWall.setPosition(pos);
+						target.draw(sWall);
+						break;
+					case Keep::Air :
+						sAir.setPosition(pos);
+						target.draw(sAir);
+						break;
+					case Keep::Stairs :
+						sStairs.setPosition(pos);
+						target.draw(sStairs);
+					default :
+						break;
+				}
+				
+				if (m_hasHoverTile && m_hoverTile.x == i && m_hoverTile.y == j)
+				{
+					sRedEffect.setPosition(pos);
+					target.draw(sRedEffect);
+				}	
+				
+				if (i == player.x && j == player.y)
+				{
+					sPlayer.setPosition(pos);
+					target.draw(sPlayer);
+				}
+				//AFFICHER LES COORDS DE CHAQUE CASE
+				if (m_conf.renderCoords)
+				{
+					sText.setPosition(pos);
+					sText.setString("[" + std::to_string(i) + "; " + std::to_string(j) + "]");
+					target.draw(sText);
+				}
 
+				//si grisée, la case est ... ben grisée ^^
+				if (m_mask[i][j] == Dark)
+				{
+					sDarkTile.setPosition(pos);
+					target.draw(sDarkTile);
+				}
+			}
 		}
 }
 
@@ -131,7 +143,28 @@ void DungeonRenderer::onMouseMove(sf::Event::MouseMoveEvent event)
 
 void DungeonRenderer::onPlayerMove()
 {
+	sf::Vector2u player = m_dungeon.getPlayerPosition();
+	sf::Vector2u upLeft;
+	if (player.x - 5 >= m_dungeon.getSize().x)
+		upLeft.x = 0;
+	else
+		upLeft.x = player.x - 5;
+	if (player.y - 5 >= m_dungeon.getSize().y)
+		upLeft.y = 0;
+	else
+		upLeft.y = player.y - 5;
+	std::cout << "upLeft : (" << upLeft.x << "; " << upLeft.y << ")" << std::endl;
 	
+	for (unsigned int i(upLeft.x); i < player.x + 5; ++i)
+	{
+		for (unsigned int j(upLeft.y); j < player.y + 5; ++j)
+		{
+			if (i < m_dungeon.getSize().x && j < m_dungeon.getSize().y) // i et j ne sortent pas des limites
+				m_mask[i][j] = Visible;
+		}
+	}
+	
+	std::cout << "playerMove fini !" << std::endl;
 }
 
 void DungeonRenderer::onMouseButtonPressed(sf::Event::MouseButtonEvent event)
