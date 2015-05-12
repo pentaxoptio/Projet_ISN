@@ -1,7 +1,6 @@
 Makefile
 *.swp
 *.o
-*.pro
 *.pro.user
 *.xcf
 convert-to-val

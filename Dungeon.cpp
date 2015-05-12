@@ -97,6 +97,11 @@ sf::Vector2u Dungeon::getPlayerPosition() const
     return m_player.getPosition();
 }
 
+std::vector<Ennemy> const& Dungeon::getEnnemies() const
+{
+	return m_ennemies;
+}
+
 //Creation de donjon
 
 /* entrée : Int nombre de pieces a créer

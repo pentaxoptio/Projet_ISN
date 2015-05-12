@@ -30,7 +30,7 @@ class Dungeon
         sf::Vector2u getSize() const;
         Keep::Tile getTile(unsigned int x, unsigned int y) const;
         sf::Vector2u getPlayerPosition() const;
-
+		std::vector<Ennemy> const& getEnnemies() const;
 
 	private :
 		void placeRooms(int roomsCount);
