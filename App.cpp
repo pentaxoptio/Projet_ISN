@@ -47,7 +47,7 @@ void App::update(sf::Time dt)
 
 void App::render()
 {
-	m_w.clear(sf::Color(200, 160, 160));
+	m_w.clear(sf::Color(0, 0, 8));
 	m_stack.render();
 	m_w.display();
 }
