@@ -23,6 +23,7 @@ void Dungeon::setDifficulty(Difficulty diff)
             height = rand() % 15 + 40;
         m_grid = Grid(width, std::vector<Keep::Tile>(height, Keep::Wall));
         placeRooms(roomsCount);
+        placeEnnemy(5);
     }
 
     else if (diff == Normal)
@@ -34,6 +35,7 @@ void Dungeon::setDifficulty(Difficulty diff)
             height = rand() % 15 + 50;
         m_grid = Grid(width, std::vector<Keep::Tile>(height, Keep::Wall));
         placeRooms(roomsCount);
+        placeEnnemy(10);
     }
     else
     {
@@ -44,6 +46,24 @@ void Dungeon::setDifficulty(Difficulty diff)
             height = rand() % 15 + 70;
         m_grid = Grid(width, std::vector<Keep::Tile>(height, Keep::Wall));
         placeRooms(roomsCount);
+        placeEnnemy(15);
+    }
+
+}
+
+void Dungeon::placeEnnemy(int nbrEnnemy)
+{
+    int cpt(0);
+    while (cpt<nbrEnnemy)
+    {
+        int xPosition = rand() % (int)m_grid.size();
+        int yPosition = rand() % (int)m_grid[0].size();
+        if(m_grid[xPosition][yPosition]==Keep::Air)
+        {
+            m_ennemies.push_back(Ennemy(Zombie));
+            m_ennemies[m_ennemies.size()-1].setPosition(sf::Vector2u(xPosition,yPosition));
+            ++cpt;
+        }
     }
 
 }

@@ -40,6 +40,7 @@ class Dungeon
         std::vector<int> dontGetOutY(int depart, std::vector<int> direction);
         void diagonal(int xPosition, int yPosition, int xDirection, int yDirection);
         void setDifficulty(Difficulty diff);
+        void placeEnnemy(int nbrEnnemy);
 
 
     private :
