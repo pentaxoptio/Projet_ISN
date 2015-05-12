@@ -11,7 +11,8 @@ enum TextureId
 	Buttons,
 	Effects,
 	TitleScreen,
-	Logo
+	Logo,
+	Ennemies
 };
 
 enum RectId
@@ -25,7 +26,9 @@ enum RectId
 	ButtonSelect,
 	ButtonActivate,
 	Player1,
-	Player2
+	Player2,
+	Zombie1,
+	Zombie2
 };
 
 class TextureHolder

@@ -77,4 +77,7 @@ void App::registerTextures()
 	m_textures.registerRect(ButtonActivate, sf::IntRect(0, 80, 200, 40));
 	m_textures.registerTexture(TitleScreen, "res/tex/title_screen.png");
 	m_textures.registerTexture(Logo, "res/tex/logo.png");
+	m_textures.registerTexture(Ennemies, "res/tex/zombie.png");
+	m_textures.registerRect(Zombie1, sf::IntRect(0, 0, 24, 48));
+	m_textures.registerRect(Zombie2, sf::IntRect(24, 0, 24, 48));
 }

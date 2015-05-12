@@ -34,6 +34,8 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates) const
 	sf::RectangleShape sDarkTile(sf::Vector2f(24.f, 24.f));
 	sDarkTile.setScale(scales);
 	sDarkTile.setFillColor(sf::Color(0, 0, 0, 127));
+	sf::Sprite sZombie(m_context.textures->getTexture(Ennemies), m_context.textures->getRect(Zombie1));
+	sZombie.setScale(scales);
 
 	//AFFICHER LES COORD DE CHAQUE CASE -> sera rendu seulement si configuré pour
 	sf::Text sText("", m_context.fonts->get(Default), 10);
@@ -49,6 +51,10 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates) const
 	sPlayer.setOrigin(sf::Vector2f(12.f, 24.f));
 	sRedEffect.setOrigin(origin);
 	sDarkTile.setOrigin(origin);
+	sZombie.setOrigin(sf::Vector2f(12.f, 24.f));
+
+	//liste des ennemis
+	std::vector<Ennemy> const& ennemies = m_dungeon.getEnnemies();
 
 	//Case en haut Ã  gauche, Ã  partir de laquelle on va calculer le rendu:
 	sf::Vector2f upLeft(winCenter.x - (float)player.x*m_conf.tileSize,
@@ -89,6 +95,7 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates) const
 					sPlayer.setPosition(pos);
 					target.draw(sPlayer);
 				}
+				
 				//AFFICHER LES COORDS DE CHAQUE CASE
 				if (m_conf.renderCoords)
 				{
@@ -102,6 +109,20 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates) const
 				{
 					sDarkTile.setPosition(pos);
 					target.draw(sDarkTile);
+				}
+				else //sinon on affiche les monstres
+				{
+					for (Ennemy ennemy : ennemies)
+					{
+						if (ennemy.getPosition() == sf::Vector2u(i, j))
+						{
+							if (ennemy.getType() == Zombie)
+							{
+								sZombie.setPosition(pos);
+								target.draw(sZombie);
+							}
+						}
+					}
 				}
 			}
 		}
