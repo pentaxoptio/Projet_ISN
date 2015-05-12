@@ -37,7 +37,7 @@ class Dungeon
         std::vector<int> dontGetOutX(int depart, std::vector<int> direction);
         std::vector<int> dontGetOutY(int depart, std::vector<int> direction);
         void diagonal(int xPosition, int yPosition, int xDirection, int yDirection);
-		
+
     private :
         Grid m_grid;
         Player m_player;
