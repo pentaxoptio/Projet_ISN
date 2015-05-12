@@ -229,8 +229,8 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
     for(int cpt(0); cpt < xCoords.size(); ++cpt)
     {
         //en cas d'echec deplacer juste apres le for
-        xCoords= dontGetOutX(x1,xCoords);
-        yCoords= dontGetOutY(y1,yCoords);
+        //xCoords= dontGetOutX(x1,xCoords);
+        //yCoords= dontGetOutY(y1,yCoords);
 
         diagonal(x1,y1,xCoords[cpt],yCoords[cpt]);
         x1= x1+xCoords[cpt];
@@ -253,7 +253,7 @@ void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
     int cpt(0);
     while (cpt < lenth)//
     {
-        if(cpt < lenth)
+        if(cpt+1 < lenth)
         {
             createWay(xPositions[cpt], yPositions[cpt], xPositions [cpt+1], yPositions[cpt+1]);
             ++cpt;
