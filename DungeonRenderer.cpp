@@ -11,6 +11,7 @@ DungeonRenderer::DungeonRenderer(Dungeon const& dungeon, Context context, GameSt
 	m_hasHoverTile(false) ,
 	m_hoverTile(0, 0) ,
 	m_elapsedTime(sf::Time::Zero) ,
+	m_previousPlayerPosition(dungeon.getPlayerPosition()) ,
 	m_heroRect(Player1)
 {
 	onPlayerMove(); //permet de mettre à jour le mask;
@@ -143,8 +144,25 @@ void DungeonRenderer::onMouseMove(sf::Event::MouseMoveEvent event)
 
 void DungeonRenderer::onPlayerMove()
 {
-	sf::Vector2u player = m_dungeon.getPlayerPosition();
+	//D'abord, on grise la position précédente du joueur
 	sf::Vector2u upLeft;
+	sf::Vector2u previous = m_previousPlayerPosition;
+	if (previous.x - 5 >= m_dungeon.getSize().x)
+		upLeft.x = 0;
+	else
+		upLeft.x = previous.x - 5;
+	if (previous.y - 5 >= m_dungeon.getSize().y)
+		upLeft.y = 0;
+	else
+		upLeft.y = previous.y - 5;
+	for (unsigned int i(upLeft.x); i < previous.x + 5; ++i)
+		for (unsigned int j(upLeft.y); j < previous.y + 5; ++j)
+			if (i < m_dungeon.getSize().x && j < m_dungeon.getSize().y) // i et j ne sortent pas des limites
+				m_mask[i][j] = Dark;
+
+
+	//Ensuite on "blanchit" le reste des cases
+	sf::Vector2u player = m_dungeon.getPlayerPosition();
 	if (player.x - 5 >= m_dungeon.getSize().x)
 		upLeft.x = 0;
 	else
@@ -153,18 +171,14 @@ void DungeonRenderer::onPlayerMove()
 		upLeft.y = 0;
 	else
 		upLeft.y = player.y - 5;
-	std::cout << "upLeft : (" << upLeft.x << "; " << upLeft.y << ")" << std::endl;
 	
 	for (unsigned int i(upLeft.x); i < player.x + 5; ++i)
-	{
 		for (unsigned int j(upLeft.y); j < player.y + 5; ++j)
-		{
 			if (i < m_dungeon.getSize().x && j < m_dungeon.getSize().y) // i et j ne sortent pas des limites
 				m_mask[i][j] = Visible;
-		}
-	}
-	
-	std::cout << "playerMove fini !" << std::endl;
+
+	//On MAJ la position du joueur en mémoire
+	m_previousPlayerPosition = player;
 }
 
 void DungeonRenderer::onMouseButtonPressed(sf::Event::MouseButtonEvent event)
