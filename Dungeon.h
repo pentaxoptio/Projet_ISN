@@ -47,6 +47,7 @@ class Dungeon
 		Grid traitementRL(std::vector<Keep::Tile> detection, int portee, std::vector<Keep::Tile> detectionUp, std::vector<Keep::Tile> detectionDown);
 		std::vector<Grid> traitementDia(Grid detectionUp, Grid detectionDown, std::vector<Keep::Tile> detectionRight, std::vector<Keep::Tile> detectionLeft);
 		std::vector<int> traitementLimites(int posX, int posY, int d);
+		void moveEnnemies(unsigned int ennemyIndex, Grid detectionUp, Grid detectionDown, std::vector<Keep::Tile> detectionRight, std::vector<Keep::Tile> detectionLeft);
 		
     private :
         Grid m_grid;

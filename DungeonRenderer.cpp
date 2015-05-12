@@ -199,6 +199,13 @@ void DungeonRenderer::onMouseButtonPressed(sf::Event::MouseButtonEvent event)
 			m_game.requestPlayerMove(m_hoverTile);
 		}
 	}
+	else if (event.button == sf::Mouse::Right)
+	{
+		if (m_hasHoverTile)
+		{
+			m_game.requestPlayerAttack(m_hoverTile);
+		}
+	}
 }
 
 void DungeonRenderer::setRenderConfig(RenderConfig newConf)

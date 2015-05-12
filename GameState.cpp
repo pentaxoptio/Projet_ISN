@@ -78,8 +78,17 @@ void GameState::requestPlayerMove(sf::Vector2u newPos)
 {
 	if (m_dungeon.getTile(newPos.x, newPos.y) == Keep::Air)
 	{
-		m_dungeon.playerMove(newPos);
-		m_renderer.onPlayerMove(); //nécéssaire pour mettre à jour le masque
+		bool isOnEnnemy = false;
+		for (Ennemy ennemy : m_dungeon.getEnnemies())
+		{
+			if (ennemy.getPosition() == newPos)
+				isOnEnnemy = true;
+		}
+		if (!isOnEnnemy)
+		{
+			m_dungeon.playerMove(newPos);
+			m_renderer.onPlayerMove(); //nécéssaire pour mettre à jour le masque
+		}
 	}
 	else if (m_dungeon.getTile(newPos.x, newPos.y) == Keep::Stairs)
 	{
@@ -89,7 +98,14 @@ void GameState::requestPlayerMove(sf::Vector2u newPos)
 	}
 }
 
-void GameState::requestPlayerAttack(sf::Vector2u)
+void GameState::requestPlayerAttack(sf::Vector2u target)
 {
-	//à compléter ^^
+	std::vector<Ennemy> ennemies = m_dungeon.getEnnemies();
+	for (unsigned int i(0); i<ennemies.size(); ++i)
+	{
+		if (ennemies[i].getPosition() == target)
+		{
+
+		}
+	}
 }

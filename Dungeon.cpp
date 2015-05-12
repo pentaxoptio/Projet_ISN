@@ -80,6 +80,7 @@ void Dungeon::playerMove(unsigned int x, unsigned int y)
 void Dungeon::playerMove(sf::Vector2u newPos)
 {
     m_player.setPosition(newPos);
+	ia();
 }
 
 sf::Vector2u Dungeon::getSize() const
@@ -166,14 +167,18 @@ void Dungeon::placeRooms(int roomsCount)
 
 void Dungeon::ia()
 {
-	for (Ennemy ennemy : m_ennemies)
+	std::cout << "ia" << std::endl;
+	for (unsigned int e(0); e<m_ennemies.size(); ++e)
 	{
+		std::cout << "Ennemy n" << e << std::endl;
 		Grid detectionDown,detectionUp;
 		std::vector<Keep::Tile> detectionLeft,detectionRight;
-		sf::Vector2u pos = ennemy.getPosition();
-		std::vector<int> limites;
-
+		sf::Vector2u pos = m_ennemies[e].getPosition();
+		
 		int d=0;
+		std::vector<int> limites = traitementLimites(pos.x, pos.y, d);
+
+		std::cout << "testA" << std::endl;
 		for (int i=0; i<limites[2]; ++i){						//Creer la partie basse de la vision ennemie
 			limites=traitementLimites(pos.x,pos.y,i) ;			//
 			int posD=pos.y+i+1;									//				e
@@ -191,6 +196,8 @@ void Dungeon::ia()
 			}
 		}
 
+
+		std::cout << "testB" << std::endl;
 		for (int i=0; i<limites[4];++i){							//Creer la partie gauche de la vision ennemie
 			detectionLeft.push_back(m_grid[pos.x-i-1][pos.y]);}	//		 ---e
 		
@@ -209,6 +216,8 @@ void Dungeon::ia()
 		detectionUp[0]=traitementrl[1];
 		detectionRight=traitementrl[0];
 
+
+		std::cout << "testC" << std::endl;
 		std::reverse(detectionDown[0].begin(), detectionDown[0].end());
 		std::reverse(detectionUp[0].begin(), detectionUp[0].end());
 
@@ -221,6 +230,9 @@ void Dungeon::ia()
 		std::vector<Grid> traitementdia = traitementDia(detectionUp,detectionDown,detectionRight,detectionLeft);
 		detectionDown=traitementdia[1];
 		detectionUp=traitementdia[0];
+		
+		std::cout << "testD" << std::endl;
+		moveEnnemies(e, detectionUp,detectionDown,detectionRight,detectionLeft);
 	}
 }
 
@@ -468,6 +480,31 @@ std::vector<int> Dungeon::traitementLimites(int posX, int posY, int d)
     return ret;
 }
 
+void Dungeon::moveEnnemies(unsigned int ennemyIndex, Grid detectionUp, Grid detectionDown, std::vector<Keep::Tile> detectionRight, std::vector<Keep::Tile> detectionLeft)
+{
+	sf::Vector2i pos((int)m_ennemies[ennemyIndex].getPosition().x, (int)m_ennemies[ennemyIndex].getPosition().y);
+	sf::Vector2i posPlayer((int)m_player.getPosition().x, (int)m_player.getPosition().y);
+
+	if (abs(pos.x-posPlayer.x)<=3 || abs(pos.y-posPlayer.y)<=3){
+		if (pos.x-posPlayer.x>0){
+			if( pos.y-posPlayer.y<0)
+				m_ennemies[ennemyIndex].setPosition(sf::Vector2u(pos.x-1,pos.y-1));
+			if ( pos.y-posPlayer.y==0)
+				m_ennemies[ennemyIndex].setPosition(sf::Vector2u(pos.x-1,pos.y));
+			if ( pos.y-posPlayer.y>0)
+				m_ennemies[ennemyIndex].setPosition(sf::Vector2u(pos.x-1,pos.y+1));}
+
+		if (pos.x-posPlayer.x<0){
+			if( pos.y-posPlayer.y<0)
+				m_ennemies[ennemyIndex].setPosition(sf::Vector2u(pos.x+1,pos.y+1));
+			if ( pos.y-posPlayer.y==0)
+				m_ennemies[ennemyIndex].setPosition(sf::Vector2u(pos.x+1,pos.y));
+			if ( pos.y-posPlayer.y>0)
+				m_ennemies[ennemyIndex].setPosition(sf::Vector2u(pos.x+1,pos.y+1));
+
+		}
+	}
+}
 
 /* entrée : 4 int ; ce sont les coordonées de deux point a relier, ici le millieu de deux salles
  * sortie : rien (le donjon est modifié)
