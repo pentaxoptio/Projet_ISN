@@ -74,13 +74,13 @@ void Dungeon::placeEnnemy(int nbrEnnemy)
 void Dungeon::playerMove(unsigned int x, unsigned int y)
 {
     m_player.setPosition(sf::Vector2u(x, y));
-	ia();
+	//ia();
 }
 
 void Dungeon::playerMove(sf::Vector2u newPos)
 {
     m_player.setPosition(newPos);
-	ia();
+	//ia();
 }
 
 sf::Vector2u Dungeon::getSize() const

@@ -8,6 +8,7 @@
 #include "MainMenuState.h"
 #include "PlayMenuState.h"
 #include "OpeningState.h"
+#include "WinState.h"
 
 #include "Textures.h"
 #include "Fonts.h"

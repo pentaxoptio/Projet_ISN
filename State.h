@@ -13,6 +13,7 @@ enum StateId
 	MainMenu,
 	PlayMenu,
 	Game,
+	Win,
 	NoState
 };
 

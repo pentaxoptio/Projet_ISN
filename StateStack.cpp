@@ -3,7 +3,7 @@
 #include <exception>
 
 StateStack::StateStack(Context context) :
-	m_globalSettings({Normal, 0}) ,
+	m_globalSettings({Normal, 0, 0}) ,
 	m_stack() ,
 	m_changes() ,
 	m_context(context) ,

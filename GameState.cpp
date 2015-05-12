@@ -92,9 +92,7 @@ void GameState::requestPlayerMove(sf::Vector2u newPos)
 	}
 	else if (m_dungeon.getTile(newPos.x, newPos.y) == Keep::Stairs)
 	{
-		//requestStackPush(WinState)
-		requestStackClear();
-		requestStackPush(MainMenu);
+		requestStackPush(Win);
 	}
 }
 

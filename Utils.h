@@ -23,6 +23,7 @@ enum Difficulty
 struct GlobalSettings
 {
 	Difficulty difficulty;
+	unsigned int level;
 	unsigned int score;
 };
 
