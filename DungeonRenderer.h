@@ -12,7 +12,6 @@ class GameState;
 struct RenderConfig
 {
     float tileSize;
-	bool renderCoords;
 };
 
 enum MaskTile

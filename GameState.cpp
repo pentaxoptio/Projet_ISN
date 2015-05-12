@@ -42,10 +42,6 @@ bool GameState::handleEvent(sf::Event const& event)
 					conf.tileSize = conf.tileSize/2.f;
 				m_renderer.setRenderConfig(conf);
 				break;
-			case sf::Keyboard::F3 :
-				conf.renderCoords = !conf.renderCoords;
-				m_renderer.setRenderConfig(conf);
-				break;
 			default :
 				break;
 		}

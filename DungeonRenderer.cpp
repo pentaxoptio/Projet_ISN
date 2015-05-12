@@ -4,7 +4,7 @@
 
 DungeonRenderer::DungeonRenderer(Dungeon const& dungeon, Context context, GameState& game) :
 	m_dungeon(dungeon) ,
-	m_conf({48.f, false}) ,
+	m_conf({48.f}) ,
 	m_mask(dungeon.getSize().x, std::vector<MaskTile>(dungeon.getSize().y, Hidden)) ,
 	m_context(context) ,
 	m_game(game) ,
@@ -36,10 +36,6 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates) const
 	sDarkTile.setFillColor(sf::Color(0, 0, 0, 127));
 	sf::Sprite sZombie(m_context.textures->getTexture(Ennemies), m_context.textures->getRect(Zombie1));
 	sZombie.setScale(scales);
-
-	//AFFICHER LES COORD DE CHAQUE CASE -> sera rendu seulement si configuré pour
-	sf::Text sText("", m_context.fonts->get(Default), 10);
-	sText.setOrigin(sf::Vector2f(22.f, 5.f));
 
 	sf::Vector2u player = m_dungeon.getPlayerPosition();
 	sf::Vector2f winCenter = m_context.window->getView().getCenter();
@@ -94,14 +90,6 @@ void DungeonRenderer::draw(sf::RenderTarget& target, sf::RenderStates) const
 				{
 					sPlayer.setPosition(pos);
 					target.draw(sPlayer);
-				}
-				
-				//AFFICHER LES COORDS DE CHAQUE CASE
-				if (m_conf.renderCoords)
-				{
-					sText.setPosition(pos);
-					sText.setString("[" + std::to_string(i) + "; " + std::to_string(j) + "]");
-					target.draw(sText);
 				}
 
 				//si grisée, la case est ... ben grisée ^^
