@@ -52,6 +52,7 @@ class DungeonRenderer : public sf::Drawable
         bool m_hasHoverTile;
         sf::Vector2u m_hoverTile;
 		sf::Time m_elapsedTime;
+		sf::Vector2u m_previousPlayerPosition; //Utile pour le masque (voir onPlayerMove)
 		RectId m_heroRect;
 };
 
