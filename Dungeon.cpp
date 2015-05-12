@@ -11,7 +11,10 @@ Dungeon::Dungeon(Difficulty diff):
     setDifficulty(diff);
     // appeler une fonction et y mettre le code du contructeur
 }
-
+/*entrée : difficultée choisie (enum)
+ * sortie : rien
+ *
+ */
 void Dungeon::setDifficulty(Difficulty diff)
 {
     if (diff == Easy)
