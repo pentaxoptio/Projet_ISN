@@ -129,6 +129,11 @@ void DungeonRenderer::onMouseMove(sf::Event::MouseMoveEvent event)
 		m_hasHoverTile = false;
 }
 
+void DungeonRenderer::onPlayerMove()
+{
+	
+}
+
 void DungeonRenderer::onMouseButtonPressed(sf::Event::MouseButtonEvent event)
 {
 	if (event.button == sf::Mouse::Left)

@@ -23,6 +23,7 @@ class DungeonRenderer : public sf::Drawable
 		void update(sf::Time dt);
         void onMouseMove(sf::Event::MouseMoveEvent event);
         void onMouseButtonPressed(sf::Event::MouseButtonEvent event);
+		void onPlayerMove();
 
 		void setRenderConfig(RenderConfig newConf);
 		RenderConfig getRenderConfig() const;
