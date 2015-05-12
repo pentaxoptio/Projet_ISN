@@ -3,7 +3,7 @@
 OpeningState::OpeningState(StateStack& stack, Context context) :
 	State(stack, context) ,
 	m_logo(context.textures->getTexture(Logo)) ,
-	m_lifetime(sf::milliseconds(3500))
+	m_lifetime(sf::milliseconds(2000))
 {
 	
 }
