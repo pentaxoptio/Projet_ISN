@@ -37,7 +37,6 @@ void MainMenuState::render()
 
 bool MainMenuState::update(sf::Time)
 {
-	//lol
 	return true;
 }
 

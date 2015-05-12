@@ -71,7 +71,7 @@ bool GameState::handleEvent(sf::Event const& event)
 		}
 	}
 
-	return true; //lol
+    return true;
 }
 
 void GameState::requestPlayerMove(sf::Vector2u newPos)
