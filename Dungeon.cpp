@@ -74,7 +74,7 @@ void Dungeon::placeEnnemy(int nbrEnnemy)
 void Dungeon::playerMove(unsigned int x, unsigned int y)
 {
     m_player.setPosition(sf::Vector2u(x, y));
-    //Ici TimothÃ© gÃ¨re les actions des ennemis
+	ia();
 }
 
 void Dungeon::playerMove(sf::Vector2u newPos)
@@ -163,6 +163,311 @@ void Dungeon::placeRooms(int roomsCount)
     connect(xRooms, yRooms);
     m_grid[xRooms[roomsCount-1]][yRooms[roomsCount-1]]= Keep::Stairs;//on met un escalier dans la derniere salle crée
 }
+
+void Dungeon::ia()
+{
+	for (Ennemy ennemy : m_ennemies)
+	{
+		Grid detectionDown,detectionUp;
+		std::vector<Keep::Tile> detectionLeft,detectionRight;
+		sf::Vector2u pos = ennemy.getPosition();
+		std::vector<int> limites;
+
+		int d=0;
+		for (int i=0; i<limites[2]; ++i){						//Creer la partie basse de la vision ennemie
+			limites=traitementLimites(pos.x,pos.y,i) ;			//
+			int posD=pos.y+i+1;									//				e
+																//			 ///!\\\  /
+			for (int z=limites[0]; z<limites[1]+1;++z){			//            //!\\	  /
+				detectionDown[i].push_back(m_grid[z][posD]);	//			   /!\    /
+			}
+		}
+		for (int i=0; i<limites[2]; ++i){                    //  Creer la partie haute de la vision ennemie
+			limites=traitementLimites(pos.x,pos.y,i) ;		 //
+			int posU=pos.y-d-1 ;								 //				   \!/
+															//               \\!//
+			for (int z=limites[0]; z<limites[1]+1;++z){		 //              \\\!///
+				detectionUp[i].push_back(m_grid[z][posU]);	 //				    e
+			}
+		}
+
+		for (int i=0; i<limites[4];++i){							//Creer la partie gauche de la vision ennemie
+			detectionLeft.push_back(m_grid[pos.x-i-1][pos.y]);}	//		 ---e
+		
+		for (int i=0; i<limites[5];++i){							//Creer la partie droite de la vision ennemie
+			detectionRight.push_back(m_grid[pos.x+i+1][pos.y]);}	//			e---
+
+		detectionUp=traitementUD(detectionUp);			
+		detectionDown=traitementUD(detectionDown);
+
+		std::reverse(detectionDown[0].begin(), detectionDown[0].end());
+		std::reverse(detectionUp[0].begin(), detectionUp[0].end());
+
+		Grid traitementrl = traitementRL(detectionRight,limites[5],detectionUp[0],detectionDown[0]);
+
+		detectionDown[0]=traitementrl[2];
+		detectionUp[0]=traitementrl[1];
+		detectionRight=traitementrl[0];
+
+		std::reverse(detectionDown[0].begin(), detectionDown[0].end());
+		std::reverse(detectionUp[0].begin(), detectionUp[0].end());
+
+		traitementrl = traitementRL(detectionLeft,limites[4],detectionUp[0],detectionDown[0]);
+
+		detectionDown[0]=traitementrl[2];
+		detectionUp[0]=traitementrl[1];
+		detectionLeft=traitementrl[0];
+			
+		std::vector<Grid> traitementdia = traitementDia(detectionUp,detectionDown,detectionRight,detectionLeft);
+		detectionDown=traitementdia[1];
+		detectionUp=traitementdia[0];
+	}
+}
+
+Grid Dungeon::traitementUD(Grid detection)
+{
+	for (unsigned int i(0); i<detection.size(); ++i){ 
+		for (unsigned int j(0); j<detection[i].size(); ++j){
+		
+		if (detection[i][j] == Keep::Wall)
+        {
+			if (i==0)
+			{
+				if (j<3){
+					detection[0][j]=Keep::Stairs;
+
+					for (int x=0; x<j+1;++x)
+					detection[0][x]=Keep::Stairs;
+				
+					if (j==2){
+						detection[0][j]=Keep::Stairs;
+						if (detection.size()>=2){
+							for (int x=0 ;x<2;++x)
+									detection[1][j]=Keep::Stairs;
+
+								}
+						if (detection.size()==3)
+							detection[2][0]=Keep::Stairs;
+					}
+				}
+				if (j==3){
+					if (detection.size()>=2){
+						for (int x=0 ;x<4;++x){
+							detection[1][x]=Keep::Stairs;
+
+						if (detection.size()==3)
+							detection[2][x-1]=Keep::Stairs;
+						}
+					}
+				}
+                   if (j>3){
+                        for (int x=0; x<3;++x)
+                            std::reverse(detection[x].begin(), detection[x].end());
+						
+						for (unsigned int a(0); a<detection.size(); ++a){ 
+							for (unsigned int b(0); b<detection[a].size(); ++b){
+								
+								detection[0][b]=Keep::Stairs;
+
+								for (int x=0;x<j+1;++x)
+									detection[0][x]=Keep::Stairs;
+
+								if (b==2)
+									if (detection.size()>=2){
+										for (int x=0;x<2;++x)
+											detection[1][x]=Keep::Stairs;}
+
+									if (detection.size()==3)
+										detection[2][0]=Keep::Stairs;
+										
+						for (int x=0; x<3;++x)
+                            std::reverse(detection[x].begin(), detection[x].end());
+									}
+						}
+				   }
+
+                if (i==1){
+                    if (j==0){
+                        if (detection.size()>=2)
+							detection[1][j]=Keep::Stairs;}
+
+                    if (j==1){
+                        detection[1][j]=Keep::Stairs;
+
+                        if (detection.size()==3)
+							detection[2][0]=Keep::Stairs;
+					}
+
+
+                    if (j==2){
+                        detection[1][j]=Keep::Stairs;
+
+                        if (detection.size()>=2)
+                            detection[1][2]=Keep::Stairs;
+
+                        if (detection.size()==3){
+                            for (int x=0;x<3;++x)
+								detection[2][i]=Keep::Stairs;}
+					}
+
+                    if (j==3){
+                        detection[1][j]=Keep::Stairs;
+
+                        if (detection.size()==3)
+							detection[2][2]=Keep::Stairs;}
+
+                    if (j==4)
+                        detection[1][j]=Keep::Stairs;
+				}
+
+                if (i==3){
+					detection[2][j]=Keep::Stairs;}
+			}
+		}
+		}
+	}
+	return detection;
+}
+
+Grid Dungeon::traitementRL(std::vector<Keep::Tile> detection, int portee, std::vector<Keep::Tile> detectionUp, std::vector<Keep::Tile> detectionDown)
+{
+	for (unsigned int i(0); i<detection.size(); ++i){ 
+		 if (detection[i] == Keep::Wall){
+
+			 if (i==0){
+				for (int x=0;x<portee;++x)
+					detection[x]=Keep::Stairs;
+
+				if (detectionDown.size()!=0){
+					for (int x=0;x<portee-1;++x)
+						detectionDown[x]=Keep::Stairs;}
+
+				if (detectionUp.size()!=0){
+					for (int x=0;x<portee-1;++x)
+						detectionUp[x]=Keep::Stairs;}
+
+			 }
+			if (i==1){
+				for (int x=1;x<portee;++x)
+					detection[x]=Keep::Stairs;
+
+				if (detectionDown.size()!=0){
+					for (int x=0;x<portee-2;++x)
+						detectionDown[x]=Keep::Stairs;}
+
+				if (detectionUp.size()!=0){
+					for (int x=0;x<portee-2;++x)
+						detectionUp[x]=Keep::Stairs;}
+			}
+
+
+			if (i==2)
+				detection[i]=Keep::Stairs;
+		 }
+	 }
+	 Grid ret;
+	 ret.push_back(detection);
+	 ret.push_back(detectionUp);
+	 ret.push_back(detectionDown);
+	 return	ret;
+}
+
+std::vector<Grid> Dungeon::traitementDia(Grid detectionUp, Grid detectionDown, std::vector<Keep::Tile> detectionRight, std::vector<Keep::Tile> detectionLeft)
+{
+	if (detectionUp.size()>=1 && detectionLeft.size()>=1){
+		if (detectionUp[0][3]==Keep::Stairs && detectionLeft[0]==Keep::Stairs){
+			detectionUp[0][2]=Keep::Stairs;
+			if(detectionUp.size()>=2 && detectionLeft.size()>=2)
+				detectionUp[1][0]=Keep::Stairs;}
+	}
+
+    if (detectionUp.size()>=1 && detectionRight.size()>=1){
+		if (detectionUp[0][3]==Keep::Stairs && detectionRight[0]==Keep::Stairs){
+			detectionUp[0][4]=Keep::Stairs;
+			if(detectionUp.size()>=2 && detectionRight.size()>=2)
+				detectionUp[1][4]=Keep::Stairs;}
+	}
+
+	if (detectionDown.size()>=1 && detectionLeft.size()>=1){
+		if (detectionDown[0][3]==Keep::Stairs && detectionLeft[0]==Keep::Stairs){
+			detectionDown[0][2]=Keep::Stairs;
+			if(detectionDown.size()>=2 && detectionLeft.size()>=2)
+				detectionDown[1][0]=Keep::Stairs;}
+	}
+
+    if (detectionDown.size()>=1 && detectionRight.size()>=1){
+		if (detectionDown[0][3]==Keep::Stairs && detectionRight[0]==Keep::Stairs){
+			detectionDown[0][4]=Keep::Stairs;
+			if(detectionDown.size()>=2 && detectionRight.size()>=2)
+				detectionDown[1][4]=Keep::Stairs;}
+	}
+	std::vector<Grid> ret;
+	ret.push_back(detectionUp);
+	ret.push_back(detectionDown);
+	return ret;
+}
+
+std::vector<int> Dungeon::traitementLimites(int posX, int posY, int d)
+{
+	int posL=posX-3+d;
+    int posR=posX+3-d;
+    int reachL=3;
+    int reachR=3;
+    int x=3;
+    int xU=3;
+	int limy = (int)getSize().y;
+	int limx = (int)getSize().x;
+
+    if (posY==limy-1){
+		x=0;}
+    if (posY==limy-2){
+		x=1;}
+    if (posY==limy-3){
+		x=2;}
+
+    if (posY==0){
+		xU=0;}
+
+    if (posY==1){
+		xU=1;}
+
+    if (posY==2){
+		xU=2;}
+
+    if (posX==0){
+		reachL=0;
+		posL=posX;}
+
+    if (posX==1){
+		reachL=1;
+		posL=posX-1+d;}
+
+    if (posX==2){
+		reachL=2;
+		posL=posX-2+d;}
+
+    if (posX==limx-1){
+		reachR=0;
+		posR=posX;}
+
+    if (posX==limx-2){
+		reachR=1;
+		posR=posX+1-d;}
+
+    if (posX==limx-3){
+        reachR=2;
+		posR=posX+2-d;}
+
+	std::vector<int> ret;
+	ret.push_back(posL);
+	ret.push_back(posR);
+	ret.push_back(x);
+	ret.push_back(xU);
+	ret.push_back(reachL);
+	ret.push_back(reachR);
+    return ret;
+}
+
 
 /* entrée : 4 int ; ce sont les coordonées de deux point a relier, ici le millieu de deux salles
  * sortie : rien (le donjon est modifié)

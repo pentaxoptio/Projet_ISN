@@ -41,8 +41,13 @@ class Dungeon
         void diagonal(int xPosition, int yPosition, int xDirection, int yDirection);
         void setDifficulty(Difficulty diff);
         void placeEnnemy(int nbrEnnemy);
-
-
+		//intelligence artificielle
+		void ia();
+		Grid traitementUD(Grid detection);
+		Grid traitementRL(std::vector<Keep::Tile> detection, int portee, std::vector<Keep::Tile> detectionUp, std::vector<Keep::Tile> detectionDown);
+		std::vector<Grid> traitementDia(Grid detectionUp, Grid detectionDown, std::vector<Keep::Tile> detectionRight, std::vector<Keep::Tile> detectionLeft);
+		std::vector<int> traitementLimites(int posX, int posY, int d);
+		
     private :
         Grid m_grid;
         Player m_player;
