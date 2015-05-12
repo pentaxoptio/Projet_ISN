@@ -6,15 +6,7 @@ GameState::GameState(StateStack &stack, Context context) :
     m_dungeon(getGlobalSettings().difficulty) ,
 	m_renderer(m_dungeon, context, *this)
 {
-	Difficulty dfclt = getGlobalSettings().difficulty;
-	std::cout << "Difficulté choisie : ";
-	if (dfclt == Easy)
-		std::cout << "Easy";
-	else if (dfclt == Normal)
-		std::cout << "Normal";
-	else
-		std::cout << "Hard";
-	std::cout << std::endl;
+	
 }
 
 void GameState::render()
@@ -64,7 +56,6 @@ bool GameState::handleEvent(sf::Event const& event)
 
 void GameState::requestPlayerMove(sf::Vector2u newPos)
 {
-	std::cout << "Request Player Move at (" << newPos.x << "; " << newPos.y << ")" << std::endl;
 	if (m_dungeon.getTile(newPos.x, newPos.y) == Keep::Air)
 	{
 		m_dungeon.playerMove(newPos);
