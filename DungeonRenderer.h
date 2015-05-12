@@ -15,6 +15,13 @@ struct RenderConfig
 	bool renderCoords;
 };
 
+enum MaskTile
+{
+	Hidden,
+	Dark,
+	Visible
+};
+
 class DungeonRenderer : public sf::Drawable
 {
     public :
@@ -23,6 +30,7 @@ class DungeonRenderer : public sf::Drawable
 		void update(sf::Time dt);
         void onMouseMove(sf::Event::MouseMoveEvent event);
         void onMouseButtonPressed(sf::Event::MouseButtonEvent event);
+		void onPlayerMove();
 
 		void setRenderConfig(RenderConfig newConf);
 		RenderConfig getRenderConfig() const;
@@ -32,11 +40,15 @@ class DungeonRenderer : public sf::Drawable
     private :
         sf::Vector2u determineTile(sf::Vector2i location) const;
 
+	private :
+		typedef std::vector<std::vector<MaskTile> > Mask;
+
     private :
         Dungeon const& m_dungeon;
         RenderConfig m_conf;
+		Mask m_mask; //Masque permettant de mettre le noir / gris
         Context m_context;
-		GameState& m_game; //référence vers la GameState (nécessaire pour traiter les events
+		GameState& m_game; //référence vers la GameState (nécessaire pour traiter les events)
         bool m_hasHoverTile;
         sf::Vector2u m_hoverTile;
 		sf::Time m_elapsedTime;

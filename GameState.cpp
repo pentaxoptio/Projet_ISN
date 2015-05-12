@@ -68,6 +68,7 @@ void GameState::requestPlayerMove(sf::Vector2u newPos)
 	if (m_dungeon.getTile(newPos.x, newPos.y) == Keep::Air)
 	{
 		m_dungeon.playerMove(newPos);
+		m_renderer.onPlayerMove(); //nécéssaire pour mettre à jour le masque
 	}
 	else if (m_dungeon.getTile(newPos.x, newPos.y) == Keep::Stairs)
 	{
