@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "Ennemy.h"
+#include "Utils.h"
 
 #include <vector>
 #include <SFML/Graphics.hpp>
@@ -22,13 +23,14 @@ typedef std::vector<std::vector<Keep::Tile> > Grid;
 class Dungeon
 {
     public :
-        Dungeon();
+        Dungeon(Difficulty diff);
         void playerMove(unsigned int x, unsigned int y);
         void playerMove(sf::Vector2u newPos);
 
         sf::Vector2u getSize() const;
         Keep::Tile getTile(unsigned int x, unsigned int y) const;
         sf::Vector2u getPlayerPosition() const;
+
 
 	private :
 		void placeRooms(int roomsCount);
@@ -37,6 +39,8 @@ class Dungeon
         std::vector<int> dontGetOutX(int depart, std::vector<int> direction);
         std::vector<int> dontGetOutY(int depart, std::vector<int> direction);
         void diagonal(int xPosition, int yPosition, int xDirection, int yDirection);
+        void setDifficulty(Difficulty diff);
+
 
     private :
         Grid m_grid;

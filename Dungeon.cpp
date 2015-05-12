@@ -2,17 +2,13 @@
 #include "Dungeon.h"
 #include <time.h>
 #include <stdlib.h>
-#include "GameState.h"
 
-Dungeon::Dungeon():
+Dungeon::Dungeon(Difficulty diff):
     m_grid() ,
     m_player() ,
 	m_ennemies()
 {
-    GameState::State
-            difficulty = getGlobalSettings().difficulty;
-
-    Dungeon::setDifficulty(difficulty);
+    setDifficulty(diff);
     // appeler une fonction et y mettre le code du contructeur
 }
 
@@ -22,7 +18,7 @@ void Dungeon::setDifficulty(Difficulty diff)
     {
         m_player.setPosition(sf::Vector2u(40, 35));
         std::srand((unsigned int)std::time(0));
-        int roomsCount = 7; //à modifier
+        int roomsCount = 5; //à modifier
         int width = rand() % 25 + 65,
             height = rand() % 15 + 40;
         m_grid = Grid(width, std::vector<Keep::Tile>(height, Keep::Wall));
@@ -33,7 +29,7 @@ void Dungeon::setDifficulty(Difficulty diff)
     {
         m_player.setPosition(sf::Vector2u(40, 35));
         std::srand((unsigned int)std::time(0));
-        int roomsCount = 12; //à modifier
+        int roomsCount = 10; //à modifier
         int width = rand() % 25 + 75,
             height = rand() % 15 + 50;
         m_grid = Grid(width, std::vector<Keep::Tile>(height, Keep::Wall));
@@ -43,7 +39,7 @@ void Dungeon::setDifficulty(Difficulty diff)
     {
         m_player.setPosition(sf::Vector2u(40, 35));
         std::srand((unsigned int)std::time(0));
-        int roomsCount = 17; //à modifier
+        int roomsCount = 15; //à modifier
         int width = rand() % 25 + 90,
             height = rand() % 15 + 70;
         m_grid = Grid(width, std::vector<Keep::Tile>(height, Keep::Wall));

@@ -3,7 +3,7 @@
 
 GameState::GameState(StateStack &stack, Context context) :
 	State(stack, context) ,
-	m_dungeon() ,
+    m_dungeon(getGlobalSettings().difficulty) ,
 	m_renderer(m_dungeon, context, *this)
 {
 	Difficulty dfclt = getGlobalSettings().difficulty;
