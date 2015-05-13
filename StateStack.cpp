@@ -74,8 +74,6 @@ GlobalSettings& StateStack::accessGlobalSettings()
 	return m_globalSettings;
 }
 
-//Private : -----------------------------
-
 StateStack::Change::Change(Action act, StateId sId) :
 	action(act)
 	, id(sId)
