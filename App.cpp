@@ -4,10 +4,15 @@ App::App() :
 	m_w(sf::VideoMode(800, 450), "DONJON") ,
 	m_textures() ,
 	m_fonts() ,
-	m_stack({&m_w, &m_textures, &m_fonts})
+    m_stack({&m_w, &m_textures, &m_fonts}) ,
+    m_music()
 {
 	registerStates();
 	registerTextures();
+
+    m_music.openFromFile("res/mus/celtic_music_legend_chiptune.ogg");
+    m_music.setLoop(true);
+    m_music.play();
 
 	m_fonts.registerFont(Default, "res/font/SourceCodePro-Regular.ttf");
 

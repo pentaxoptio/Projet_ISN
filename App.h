@@ -2,6 +2,7 @@
 #define APP_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include "StateStack.h"
 #include "GameState.h"
@@ -44,6 +45,8 @@ class App
 		FontHolder m_fonts;
 		//Le StateStack, ou la pile de States. cf. StateStack.h
 		StateStack m_stack;
+        //La musique jouée
+        sf::Music m_music;
 };
 
 #endif
