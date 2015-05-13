@@ -172,14 +172,14 @@ void DungeonRenderer::onPlayerMove()
 
 	//Ensuite on "blanchit" le reste des cases
 	sf::Vector2u player = m_dungeon.getPlayerPosition();
-	if (player.x - 5 >= m_dungeon.getSize().x)
+    if (player.x - 4 >= m_dungeon.getSize().x)
 		upLeft.x = 0;
 	else
-		upLeft.x = player.x - 5;
-	if (player.y - 5 >= m_dungeon.getSize().y)
+        upLeft.x = player.x - 4;
+    if (player.y - 4 >= m_dungeon.getSize().y)
 		upLeft.y = 0;
 	else
-		upLeft.y = player.y - 5;
+        upLeft.y = player.y - 4;
 	
 	for (unsigned int i(upLeft.x); i < player.x + 5; ++i)
 		for (unsigned int j(upLeft.y); j < player.y + 5; ++j)
