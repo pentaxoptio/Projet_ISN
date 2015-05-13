@@ -5,7 +5,7 @@
 FontHolder::FontHolder() :
 	m_fonts()
 {
-	std::cout << "construction fonts" << std::endl;
+
 }
 
 FontHolder::~FontHolder()

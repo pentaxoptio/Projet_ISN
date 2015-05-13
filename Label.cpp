@@ -7,7 +7,7 @@ using namespace gui;
 Label::Label() :
 	m_text()
 {
-	std::cout << "construction label" << std::endl;
+
 }
 
 Label::Label(std::string const &text, sf::Font const &font, unsigned int fontSize) :

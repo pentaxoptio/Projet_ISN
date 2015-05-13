@@ -11,7 +11,6 @@ Button::Button(bool toggle, TextureHolder const &textures) :
 	m_toggle(toggle)
 {
 	initSprite();
-	std::cout << "construction button" << std::endl;
 }
 
 Button::Button(bool toggle, std::string const &text, sf::Font const &font, TextureHolder const &textures) :
@@ -21,7 +20,6 @@ Button::Button(bool toggle, std::string const &text, sf::Font const &font, Textu
 	, m_callback()
 	, m_toggle(toggle)
 {
-	std::cout << "construction button" << std::endl;
 	initSprite();
 	m_text.setCharacterSize(20);
 	m_text.setColor(sf::Color::White);

@@ -22,6 +22,7 @@ MainMenuState::MainMenuState(StateStack &stack, Context context) :
 	m_container.pack(quit);
 }
 
+
 void MainMenuState::render()
 {
 	sf::Vector2f scale(

@@ -7,7 +7,7 @@ Component::Component() :
 	m_selected(false) ,
 	m_activate(false)
 {
-	std::cout << "construction component" << std::endl;
+
 }
 
 bool Component::isSelected() const
@@ -49,7 +49,7 @@ Container::Container() :
 	m_children()
 	, m_selectedChild(-1)
 {
-	std::cout << "construction container" << std::endl;
+
 }
 
 Container::~Container()
@@ -147,7 +147,6 @@ bool Container::hasSelection() const
 
 Component const& Container::getSelection()
 {
-	std::cout << "get selection" << std::endl;
 	if (hasSelection())
 		return *m_children[m_selectedChild];
 	else
