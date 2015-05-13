@@ -52,14 +52,13 @@ PlayMenuState::PlayMenuState(StateStack &stack, Context context) :
 
 bool PlayMenuState::handleEvent(sf::Event const& event)
 {
-	//délégation power !
+    //délégation
 	m_container.handleEvent(event);
 	return true;
 }
 
 bool PlayMenuState::update(sf::Time)
 {
-	//lol
 	return true;
 }
 
