@@ -150,14 +150,14 @@ void Dungeon::placeRooms(int roomsCount)
     while (cpt < roomsCount)
     {
         //Génération de la position et de la taille de la salle
-        int xPosition = rand() % (int)m_grid.size();
-        int yPosition = rand() % (int)m_grid[0].size();
+        int xPosition = (rand() % (int)m_grid.size())+1;
+        int yPosition = (rand() % (int)m_grid[0].size())+1;
         int xPositionMax = xPosition + rand()%5 + 7;
         int yPositionMax = yPosition + rand()%5 + 7;
 
-        if ((unsigned int)xPositionMax > m_grid.size()) //salle sort de la grille
+        if ((unsigned int)xPositionMax+1 > m_grid.size()) //salle sort de la grille
             continue;
-        if ((unsigned int)yPositionMax + 1 > m_grid[0].size())
+        if ((unsigned int)yPositionMax + 2 > m_grid[0].size())
             continue;
 
         sf::IntRect newRoom(xPosition, yPosition, xPositionMax-xPosition+1, yPositionMax-yPosition+1);
