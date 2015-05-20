@@ -4,6 +4,7 @@
 #include "State.h"
 #include "Gui.h"
 #include "Button.h"
+#include "Label.h"
 #include "Utils.h"
  
 //Classe PlayMenuState

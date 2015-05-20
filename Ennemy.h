@@ -13,9 +13,12 @@ class Ennemy
 	public :
 		Ennemy(EnnemyType type);
 
+		void takeDamage(unsigned int dmg);
+
 		EnnemyType getType() const;
 		void setPosition(sf::Vector2u pos);
 		sf::Vector2u getPosition() const;
+		unsigned int getHealth() const;
 
 	private :
 		void initializeParametersAfterType();

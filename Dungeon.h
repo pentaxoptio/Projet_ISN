@@ -26,6 +26,9 @@ class Dungeon
         Dungeon(Difficulty diff);
         void playerMove(unsigned int x, unsigned int y);
         void playerMove(sf::Vector2u newPos);
+		void attackEnnemy(sf::Vector2u newPos);
+		void killEnnemy(sf::Vector2u ennemyPos);
+		void killEnnemy(unsigned int ennemyId);
 
         sf::Vector2u getSize() const;
         Keep::Tile getTile(unsigned int x, unsigned int y) const;

@@ -156,14 +156,14 @@ void DungeonRenderer::onPlayerMove()
 	//D'abord, on grise la position précédente du joueur
 	sf::Vector2u upLeft;
 	sf::Vector2u previous = m_previousPlayerPosition;
-	if (previous.x - 5 >= m_dungeon.getSize().x)
+	if (previous.x - 4 >= m_dungeon.getSize().x)
 		upLeft.x = 0;
 	else
-		upLeft.x = previous.x - 5;
-	if (previous.y - 5 >= m_dungeon.getSize().y)
+		upLeft.x = previous.x - 4;
+	if (previous.y - 4 >= m_dungeon.getSize().y)
 		upLeft.y = 0;
 	else
-		upLeft.y = previous.y - 5;
+		upLeft.y = previous.y - 4;
 	for (unsigned int i(upLeft.x); i < previous.x + 5; ++i)
 		for (unsigned int j(upLeft.y); j < previous.y + 5; ++j)
 			if (i < m_dungeon.getSize().x && j < m_dungeon.getSize().y) // i et j ne sortent pas des limites
