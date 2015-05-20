@@ -270,7 +270,7 @@ Grid Dungeon::traitementUD(Grid detection)
 				if (j<3){
 					detection[0][j]=Keep::Stairs;
 
-					for (int x=0; x<j+1;++x)
+                    for (unsigned int x=0; x<j+1;++x)
 					detection[0][x]=Keep::Stairs;
 				
 					if (j==2){
@@ -303,7 +303,7 @@ Grid Dungeon::traitementUD(Grid detection)
 								
 								detection[0][b]=Keep::Stairs;
 
-								for (int x=0;x<j+1;++x)
+                                for (unsigned int x=0;x<j+1;++x)
 									detection[0][x]=Keep::Stairs;
 
 								if (b==2)
@@ -502,7 +502,7 @@ std::vector<int> Dungeon::traitementLimites(int posX, int posY, int d)
     return ret;
 }
 
-void Dungeon::moveEnnemies(unsigned int ennemyIndex, Grid detectionUp, Grid detectionDown, std::vector<Keep::Tile> detectionRight, std::vector<Keep::Tile> detectionLeft)
+void Dungeon::moveEnnemies(unsigned int ennemyIndex, Grid, Grid, std::vector<Keep::Tile>, std::vector<Keep::Tile>)
 {
 	sf::Vector2i pos((int)m_ennemies[ennemyIndex].getPosition().x, (int)m_ennemies[ennemyIndex].getPosition().y);
 	sf::Vector2i posPlayer((int)m_player.getPosition().x, (int)m_player.getPosition().y);
@@ -587,7 +587,7 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 
 
 
-    for(int cpt(0); cpt < xCoords.size(); ++cpt)
+    for(unsigned int cpt(0); cpt < xCoords.size(); ++cpt)
     {
         //xCoords= dontGetOutX(x1,xCoords);
         //yCoords= dontGetOutY(y1,yCoords);
@@ -623,13 +623,13 @@ void Dungeon::connect(std::vector<int> xPositions, std::vector<int> yPositions)
 
 std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
 {
-    for (int cpt(0); cpt <= direction.size(); ++cpt)
+    for (unsigned int cpt(0); cpt <= direction.size(); ++cpt)
        {
            if (cpt < direction.size() )//Tant qu'on n'a pas fini le chemin, on ajoute ou retire 1 des x de la ou on est pour créer un chemin
            {
                if (depart + direction[cpt] > 0 )//si on ne sort pas vers l'exterieur haut ou gauche
                {
-                   if (depart + direction[cpt] < m_grid.size() ) // et ni vers l'exterieur bas ou droite
+                   if ((unsigned int)(depart + direction[cpt]) < m_grid.size() ) // et ni vers l'exterieur bas ou droite
                    {
                        continue; // si on ne depasse ni a droite ni a gauche c est bon
                    }
@@ -649,7 +649,7 @@ std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
                {
                    direction.erase(direction.begin()+cpt);
                    direction.push_back(-1);
-                   while(cpt+1 == -1)
+                   while((int)cpt+1 == -1 )
                    {
                        direction.erase(direction.begin()+cpt);
                        direction.push_back(-1);
@@ -672,13 +672,13 @@ std::vector<int> Dungeon::dontGetOutX(int depart,std::vector<int> direction)
 std::vector<int> Dungeon::dontGetOutY(int depart,std::vector<int> direction)
 {
 
-    for (int cpt(0); cpt <= direction.size(); ++cpt)
+    for (unsigned int cpt(0); cpt <= direction.size(); ++cpt)
        {
            if (cpt < direction.size() )//Tant qu'on n'a pas fini le chemin, on ajoute ou retire 1 des y  de la ou on est pour créer un chemin
            {
                if (depart + direction[cpt] > 0 )//si on ne sort pas vers l'exterieur haut ou gauche
                {
-                   if (depart + direction[cpt] < m_grid[0].size() ) // ni vers l'exterieur bas ou droite
+                   if ((int ) (depart + direction[cpt]) < (int) m_grid[0].size() ) // ni vers l'exterieur bas ou droite
                    {
                        continue; // si on ne depasse ni a droite ni a gauche c est bon
                    }
