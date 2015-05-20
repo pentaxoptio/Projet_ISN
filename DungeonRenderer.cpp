@@ -154,7 +154,14 @@ void DungeonRenderer::onMouseMove(sf::Event::MouseMoveEvent event)
 void DungeonRenderer::onPlayerMove()
 {
 	//On reset la case
-	m_hoverTile = determineTile(sf::Mouse::getPosition(*m_context.window));
+	try
+	{
+		m_hoverTile = determineTile(sf::Mouse::getPosition(*m_context.window));
+	}
+	catch (std::runtime_error)
+	{
+		m_hasHoverTile = false;
+	}
 	//D'abord, on grise la position précédente du joueur
 	sf::Vector2u upLeft;
 	sf::Vector2u previous = m_previousPlayerPosition;
