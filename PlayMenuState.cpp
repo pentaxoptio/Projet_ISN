@@ -7,24 +7,29 @@ PlayMenuState::PlayMenuState(StateStack &stack, Context context) :
 	m_difficultyButton(nullptr) ,
 	m_difficulty(Normal)
 {
-	gui::Button* difficulty = new gui::Button(false, "Difficulty : Normal", context.fonts->get(Default), *context.textures);
-	difficulty->setPosition(100, 250);
+	gui::Label* diffLabel = new gui::Label("Difficulty :", context.fonts->get(Default));
+	diffLabel->setPosition(100, 250);
+	diffLabel->setColor(sf::Color::Black);
+	m_container.pack(diffLabel);
+
+	gui::Button* difficulty = new gui::Button(false, "Normal", context.fonts->get(Default), *context.textures);
+	difficulty->setPosition(120 + diffLabel->getSize().x, 250);
 	difficulty->setCallback([this] ()
 	{
 		if (m_difficulty == Normal)
 		{
 			m_difficulty = Hard;
-			m_difficultyButton->setText("Difficulty : Hard");
+			m_difficultyButton->setText("Hard");
 		}
 		else if (m_difficulty == Hard)
 		{
 			m_difficulty = Easy;
-			m_difficultyButton->setText("Difficulty : Easy");
+			m_difficultyButton->setText("Easy");
 		}
 		else
 		{
 			m_difficulty = Normal;
-			m_difficultyButton->setText("Difficulty : Normal");
+			m_difficultyButton->setText("Normal");
 		}
 	});
 	m_container.pack(difficulty);
