@@ -589,8 +589,8 @@ void Dungeon::createWay(int x, int y, int xDest, int yDest)
 
     for(unsigned int cpt(0); cpt < xCoords.size(); ++cpt)
     {
-        //xCoords= dontGetOutX(x1,xCoords);
-        //yCoords= dontGetOutY(y1,yCoords);
+        xCoords= dontGetOutX(x1,xCoords);
+        yCoords= dontGetOutY(y1,yCoords);
 
         diagonal(x1,y1,xCoords[cpt],yCoords[cpt]);
         x1= x1+xCoords[cpt];
