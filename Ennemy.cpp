@@ -9,6 +9,18 @@ Ennemy::Ennemy(EnnemyType type) :
 	initializeParametersAfterType();
 }
 
+void Ennemy::takeDamage(unsigned int dmg)
+{
+	if (dmg < m_health)
+	{
+		m_health -= dmg;
+	}
+	else
+	{
+		m_health = 0;
+	}
+}
+
 EnnemyType Ennemy::getType() const
 {
 	return m_type;
@@ -22,6 +34,11 @@ void Ennemy::setPosition(sf::Vector2u pos)
 sf::Vector2u Ennemy::getPosition() const
 {
 	return m_position;
+}
+
+unsigned int Ennemy::getHealth() const
+{
+	return m_health;
 }
 
 void Ennemy::initializeParametersAfterType()

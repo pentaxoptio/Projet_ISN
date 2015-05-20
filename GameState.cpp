@@ -82,7 +82,10 @@ void GameState::requestPlayerMove(sf::Vector2u newPos)
 		for (Ennemy ennemy : m_dungeon.getEnnemies())
 		{
 			if (ennemy.getPosition() == newPos)
+			{
 				isOnEnnemy = true;
+				requestPlayerAttack(ennemy.getPosition());
+			}
 		}
 		if (!isOnEnnemy)
 		{
@@ -98,12 +101,5 @@ void GameState::requestPlayerMove(sf::Vector2u newPos)
 
 void GameState::requestPlayerAttack(sf::Vector2u target)
 {
-	std::vector<Ennemy> ennemies = m_dungeon.getEnnemies();
-	for (unsigned int i(0); i<ennemies.size(); ++i)
-	{
-		if (ennemies[i].getPosition() == target)
-		{
-
-		}
-	}
+	m_dungeon.attackEnnemy(target);
 }

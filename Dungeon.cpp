@@ -81,6 +81,36 @@ void Dungeon::playerMove(sf::Vector2u newPos)
     //ia();
 }
 
+void Dungeon::attackEnnemy(sf::Vector2u ennemyPos)
+{
+	for (unsigned int i(0); i<m_ennemies.size(); ++i)
+	{
+		if (m_ennemies[i].getPosition() == ennemyPos)
+		{
+			m_ennemies[i].takeDamage(35);
+			if (m_ennemies[i].getHealth() == 0)
+				killEnnemy(i);
+		}
+	}
+}
+
+void Dungeon::killEnnemy(sf::Vector2u ennemyPos)
+{
+	for (unsigned int i(0); i<m_ennemies.size(); ++i)
+	{
+		if (m_ennemies[i].getPosition() == ennemyPos)
+		{
+			killEnnemy(i);
+		}
+	}
+}
+
+void Dungeon::killEnnemy(unsigned int ennemyId)
+{
+	if (ennemyId < m_ennemies.size())
+		m_ennemies.erase(m_ennemies.begin()+ennemyId);
+}
+
 sf::Vector2u Dungeon::getSize() const
 {
     return sf::Vector2u((unsigned int)m_grid.size(), (unsigned int)m_grid[0].size());
