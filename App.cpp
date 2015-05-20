@@ -41,6 +41,16 @@ void App::handleEvents()
 			m_w.close();
 		else if (event.type == sf::Event::Resized)
 			m_w.setView(sf::View(sf::FloatRect(0.f, 0.f, (float)event.size.width, (float)event.size.height)));
+		else if (event.type == sf::Event::KeyPressed)
+		{
+			if (event.key.code == sf::Keyboard::Equal)
+			{
+				if (m_music.getStatus() == sf::Music::Playing)
+					m_music.pause();
+				else
+					m_music.play();
+			}
+		}
 		m_stack.handleEvent(event);
 	}
 }
