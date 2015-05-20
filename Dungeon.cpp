@@ -91,6 +91,11 @@ Keep::Tile Dungeon::getTile(unsigned int x, unsigned int y) const
     return m_grid[x][y];
 }
 
+Player Dungeon::getPlayer() const
+{
+    return m_player;
+}
+
 sf::Vector2u Dungeon::getPlayerPosition() const
 {
     return m_player.getPosition();

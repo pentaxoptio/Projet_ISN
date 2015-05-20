@@ -17,3 +17,13 @@ sf::Vector2u Player::getPosition() const
 {
 	return m_position;
 }
+
+unsigned int Player::getHealth() const
+{
+    return m_health;
+}
+
+unsigned int Player::getMaxHealth() const
+{
+    return m_maxHealth;
+}

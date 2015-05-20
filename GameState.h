@@ -4,6 +4,8 @@
 #include "State.h"
 #include "Dungeon.h"
 #include "DungeonRenderer.h"
+#include "Gui.h"
+#include "Label.h"
 
 //Classe GameState
 //* Cette classe est la classe qui gère le jeu en lui-même : elle possède le donjon ainsi que le DungeonRenderer
@@ -25,6 +27,8 @@ class GameState : public State
 	private :
 		Dungeon m_dungeon;
 		DungeonRenderer m_renderer;
+        gui::Container m_container;
+        gui::Label* m_life;
 };
 
 #endif

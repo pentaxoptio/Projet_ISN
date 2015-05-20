@@ -18,6 +18,8 @@ class Player
          * description : permet de recuperer la position du joueur
          */
 		sf::Vector2u getPosition() const;
+        unsigned int getHealth() const;
+        unsigned int getMaxHealth() const;
 
 	private :
 		unsigned int m_maxHealth;
